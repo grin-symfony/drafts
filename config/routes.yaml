@@ -1,11 +1,50 @@
-gs_generic_parts_routes_prefixed:
-    type:           annotation
-    resource:       ../src/Controller
-    # don't change prefix
-    prefix:         /{_locale<%gs_generic_parts.regex_locale%>}/gs/generic-parts
+controllers:
+    resource:
+        path: '../src/Controller/'
+        namespace: App\Controller
+    #type: attribute_route_reader
+    type: attribute
     
-gs_generic_parts_routes:
-    type:           annotation
-    resource:       ../src/Controller
-    # don't change prefix
-    prefix:         /gs/generic-parts
+    schemes: ['https']
+
+    #name_prefix: 'null_'
+
+    trailing_slash_on_root: true
+
+###> Add path ###
+app_cool:
+    path: /cool
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    
+    defaults:
+        page: 666
+        
+        route: app_home_home
+        permanent: false
+        keepQueryParams: true
+        keepRequestMethod: true
+        ignoreAttributes:
+        -   'version'
+        
+redirect:
+    path: '/red'
+    controller: 'App\Controller\HomeController::home'
+    
+    defaults:
+        page: 18
+###< Add path ###
+
+###> Add alias ###
+
+###> DEFAULT LANG ###
+###< DEFAULT LANG ###
+
+home:
+    alias: 'app_home_home'
+    deprecated:
+        message: "Don't use %alias_id% alias"
+        package: 'grin/symfony'
+        version: '8.0.0'
+condition:
+    alias: 'app_home_condition'
+###< Add alias ###

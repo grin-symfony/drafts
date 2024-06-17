@@ -1,169 +1,110 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    #gs_generic_parts.timezone:                          'UTC'
-    #gs_generic_parts.locale:                            'ru_RU'
+
+    ###> REGEXP ###
+    app.regexp.digit:   '[0-9]'
+    ###< REGEXP ###
     
-    ###> DEFAULT ###
-    gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
-    ###< DEFAULT ###
+    ###> SESSION ###
+    app.session.max_idle_sec:   '10'
+    ###< SESSION ###
     
-    ###> KERNEL ###
-    gs_generic_parts.project_dir:                       '%kernel.project_dir%'
-    ###< KERNEL ###
-    
-    ###> REGEX ###
-    gs_generic_parts.regex_locale:                      '(?:\w{2,5})?'
-    ###< REGEX ###
-    
+    ###> Fixture ###
+    app.fixture.users:      10
+    app.fixture.product.toy:   5
+    app.fixture.product.food:   5
+    app.fixture.product.furniture:   5
+    ###< Fixture ###
+
+    ###> GS\Service ###
+    ###< GS\Service ###
+
+    ###> GS\WebApp ###
+    ###< GS\WebApp ###
+
 services:
+    # default configuration for services in *this* file
     _defaults:
-        public:             false
-        autowire:           false
-        autoconfigure:      false
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    
         bind:
-            ###> PARAMETERS ###
-            $timezone:          '%gs_generic_parts.timezone%'
-            $locale:            '%gs_generic_parts.locale%'
-            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
-            
             ###> SERVICES ###
-            $debugLogger:           '@monolog.logger.gs_generic_parts.debug'
-            $carFacImm:             '@gs_generic_parts.carbon_factory'
-            $bus:                   '@gs_generic_parts.messenger.bus'
-            #$carFacImm:         ''
-            $faker:                 '@gs_generic_parts.faker'
-            #$faker:             ''
-            $formFactory:           '@Symfony\Component\Form\FormFactoryInterface'
-
-    ###> TEST SERVICE ###
-    gs_generic_parts.test_service:
-        class:                  GS\GenericParts\Service\TestService
-    ###< TEST SERVICE ###
-    
-    
-    ###> CONTROLLERS ###
-    gs_generic_parts.abstract_controller:
-        abstract:               true
-        public:                 true
-        class:                  GS\GenericParts\Controller\GSAbstractController
-        autowire:               true
-        calls:
-        -   setContainer:
-            -   '@service_container'
+            $t:                 '@Symfony\Contracts\Translation\TranslatorInterface'
+            $ru12Carbon:        '@app.ru_12_carbon'
+            $enUtcCarbon:       '@app.en_utc_carbon'
+            ###< SERVICES ###
             
-    GS\GenericParts\Controller\ApiUtcDtController:
-        parent:                 gs_generic_parts.abstract_controller
-        class:                  GS\GenericParts\Controller\ApiUtcDtController
-        tags:
-        -   'controller.service_arguments'
-        
-    GS\GenericParts\Controller\ApiSetTimezoneController:
-        parent:                 gs_generic_parts.abstract_controller
-        class:                  GS\GenericParts\Controller\ApiSetTimezoneController
-        tags:
-        -   'controller.service_arguments'
-    ###< CONTROLLERS ###
-    
-    
-    ###> API SERVICES ###
-    ###> CARBON ###
-    #gs_generic_parts.carbon_factory:
-    #    public:                 true
-    #    class:                  Carbon\FactoryImmutable
-    #    arguments:
-    #        $settings:
-    #            strictMode:               true
-    #            timezone:                 '%gs_generic_parts.timezone%'
-    #            toStringFormat:           'd.m.Y H:i:s P'
-    #            monthOverflow:            true # addXXX add(<>, <>)
-    #            yearOverflow:             true        
-    ###< CARBON ###
-    
-    ###> FAKER ###
-    #gs_generic_parts.faker:
-    #    public:                 true
-    #    class:                  Faker\Factory
-    #    factory:                ['Faker\Factory', 'create']
-    #    arguments:
-    #        - '%gs_generic_parts.locale%'
-    ###< FAKER ###
-    
-    ###> MESSENGER ###
-    ###> A handy way to get result of a sync message | $result = $thisService(new Message) ###
-    gs_generic_parts.sync_message:
-        autoconfigure:          true
-        public:                 true
-        class:                  GS\GenericParts\Messenger\SyncMessage
-        arguments:
-            $messageBus: '@gs_generic_parts.messenger.bus'
-    ###< MESSENGER ###
-    ###< API SERVICES ###
+            ###> gs_service ###
+            $faker:             '@gs_service.faker'
+            ###< gs_service ###
+            
+            ###> PARAMS ###
+            $adminEmail:        '%env(ADMIN_EMAIL)%'
+            $kernelProjectDir:  '%kernel.project_dir%'
+            ###< PARAMS ###
+            
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
 
+    ###> ROUTER ###
+    App\Service\Router\AttributeRouterReader:
+        class: App\Service\Router\AttributeRouterReader
+        tags:
+        -   routing.loader
+    ###< ROUTER ###
+    
+    
+    ###> VALUE RESOLVER ###
+    ###< VALUE RESOLVER ###
+    
     
     ###> SERVICES ###
-    gs_generic_parts.conf_service:
-        class:      GS\GenericParts\Service\GSConfService
+    app.ru_12_carbon:
+        parent: gs_service.carbon_factory_immutable
         arguments:
-            $projectDir:    '%gs_generic_parts.project_dir%'
+            $settings:
+                locale: ru
+                timezone: '+1200'
+    
+    app.en_utc_carbon:
+        parent: gs_service.carbon_factory_immutable
+        arguments:
+            $settings:
+                locale: en_US
+                timezone: '+0000'
+    
     ###< SERVICES ###
     
     
-    ###> KERNEL SUBSCRIBER ###
-    gs_generic_parts.json_response_subscriber:
-        autoconfigure:          true
-        class:                  GS\GenericParts\EventSubscriber\GSJsonResponseSubscriber
-        arguments:
-            $t: '@translator.default'
-        
-    gs_generic_parts.init_subscriber:
-        autoconfigure:          true
-        autowire:               true
-        class:                  GS\GenericParts\EventSubscriber\InitSubscriber
-    ###< KERNEL SUBSCRIBER ###
+    ###> TAGS ###
+    App\DataFixtures\UserFixtures:
+        class: App\DataFixtures\UserFixtures
+        tags:
+        -   name: doctrine.fixture.orm
+            group: user
+    ###< TAGS ###
     
     
-    ###> TWIG ###
-    ###> COMPONENT ###  
-    GS\GenericParts\Twig\Component\GSAlertComponent:
-        class:                  GS\GenericParts\Twig\Component\GSAlertComponent
-        autoconfigure:          true
-    GS\GenericParts\Twig\Component\GSDtComponent:
-        class:                  GS\GenericParts\Twig\Component\GSDtComponent
-        autoconfigure:          true
-    GS\GenericParts\Twig\Component\GSNavsComponent:
-        class:                  GS\GenericParts\Twig\Component\GSNavsComponent
-        autoconfigure:          true
-    GS\GenericParts\Twig\Component\GSSpriteComponent:
-        class:                  GS\GenericParts\Twig\Component\GSSpriteComponent
-        autoconfigure:          true
-    GS\GenericParts\Twig\Component\GSSubmitButtonComponent:
-        class:                  GS\GenericParts\Twig\Component\GSSubmitButtonComponent
-        autoconfigure:          true
-    GS\GenericParts\Twig\Component\GSWatchComponent:
-        class:                  GS\GenericParts\Twig\Component\GSWatchComponent
-        autoconfigure:          true
-    GS\GenericParts\Twig\Component\GSFlashBag:
-        class:                  GS\GenericParts\Twig\Component\GSFlashBag
-        autoconfigure:          true
+    ###< DOCTRINE ###
     
-    ###> EXTENSION ###
-    GS\GenericParts\Twig\Extension\ByteForHumansExtension:
-        class:                  GS\GenericParts\Twig\Extension\ByteForHumansExtension
-        autoconfigure:          true
-    GS\GenericParts\Twig\Extension\DefaultExtension:
-        class:                  GS\GenericParts\Twig\Extension\DefaultExtension
-        autoconfigure:          true
-    ###< TWIG ###
+    App\Service\Doctrine\PurgerTruncateFactory:
+        class:  App\Service\Doctrine\PurgerTruncateFactory
+        tags:
+        -   name:   'doctrine.fixtures.purger_factory'
+            alias:  't'
     
-    
-    ###> MESSENGER ###
-    ###> HANDLERS ###
-    gs_generic_parts.init_carbon_handler:
-        class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\InitCarbonHandler
-        autoconfigure:          true
-    
-    GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler:
-        class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler
-        autoconfigure:          true
-    ###< HANDLERS ###
-    ###< MESSENGER ###
-    
+    ###> DOCTRINE ###

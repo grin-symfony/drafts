@@ -1,0 +1,8 @@
+app:
+    exception:
+    
+        db:
+            not_found: 'Сущность не найдена'
+            
+    word:
+        hello:  'привет'

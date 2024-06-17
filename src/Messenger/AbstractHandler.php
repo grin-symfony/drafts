@@ -1,7 +1,7 @@
 <?php
 
-namespace GS\GenericParts\Messenger;
+namespace App\Messenger;
 
-abstract class AbstractHandler
+class AbstractHandler
 {
 }
