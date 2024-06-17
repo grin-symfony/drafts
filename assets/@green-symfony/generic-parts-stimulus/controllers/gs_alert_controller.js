@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import Swal from 'sweetalert2/src/sweetalert2.js';
-import { gsUseFadeTransition } from '@green-symfony/generic-parts-stimulus/public/functions';
+import { gsUseFadeTransition } from '@grin-symfony/generic-parts-stimulus/public/functions';
 import { ApplicationController, useDebounce } from 'stimulus-use';
 
 /*

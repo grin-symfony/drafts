@@ -1,7 +1,7 @@
 twig:
 
     paths:
-        '%kernel.project_dir%/vendor/green-symfony/generic-parts-bundle':           GSGenericPartsBundle
+        '%kernel.project_dir%/vendor/grin-symfony/generic-parts-bundle':           GSGenericPartsBundle
 
     globals:
         gs_generic_parts:

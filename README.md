@@ -16,14 +16,14 @@ of the Composer documentation.
 Open a command console and execute:
 
 ```console
-	composer require green-symfony/generic-parts-bundle
+	composer require grin-symfony/generic-parts-bundle
 ```
 
 1.0.0) or use `git clone`
 --------
 
 ```console
-git clone https://github.com/green-symfony/generic-parts-bundle.git
+git clone https://github.com/grin-symfony/generic-parts-bundle.git
 ```
 
 ### 1.0.1) move this directory into `where/you/want/in/your/project/generic-parts-bundle`
@@ -38,7 +38,7 @@ add it into your `/composer.json`
 	}
 ],
 "require": {
-	"green-symfony/generic-parts-bundle": "TODO",
+	"grin-symfony/generic-parts-bundle": "TODO",
 }
 ```
 
@@ -78,7 +78,7 @@ add this line into your `/package.json`
 
 ```json
 {
-	"@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus"
+	"@grin-symfony/generic-parts-stimulus": "file:vendor/grin-symfony/generic-parts-bundle/assets/@grin-symfony/generic-parts-stimulus"
 }
 ```
 
@@ -122,7 +122,7 @@ import { startStimulusApp } from '@symfony/stimulus-bridge';
 import {
 	GSWatch,
 	GSLocalMoney
-} from '@green-symfony/generic-parts-stimulus';
+} from '@grin-symfony/generic-parts-stimulus';
 
 export const app = startStimulusApp(require.context(
     '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
@@ -144,7 +144,7 @@ app.register('gs-local-money',			GSLocalMoney);			/* for symfony MoneyType widge
 ### Step 5.0 (webpack): Add entry in your ***/webpack.config.js***
 
 ```js
-.addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
+.addEntry('gs_generic_parts', '/vendor/grin-symfony/generic-parts-bundle/assets/app.js')
 ```
 
 ### Step 5.1 (webpack): Enable entry in your ***/templates/base.html.twig***

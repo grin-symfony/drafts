@@ -1,7 +1,7 @@
 {
-	"name":			"@green-symfony/generic-parts-stimulus",
+	"name":			"@grin-symfony/generic-parts-stimulus",
 	"version":		"0.0.0",
-	"description":	"Stimulus controllers in general for green-symfony/generic-parts-bundle",
+	"description":	"Stimulus controllers in general for grin-symfony/generic-parts-bundle",
 	"licence":		"MIT",
 	"main":			"controllers.js",
 	"dependencies":	{
