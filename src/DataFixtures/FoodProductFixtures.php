@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use App\Entity\ProductPassport;
 
 class FoodProductFixtures extends AbstractFixtures implements FixtureGroupInterface//, DependentFixtureInterface
 {
@@ -31,6 +32,15 @@ class FoodProductFixtures extends AbstractFixtures implements FixtureGroupInterf
             $isPublic = $this->faker->boolean;
             $expiresAt = $this->faker->dateTimeBetween(endDate: '+30 years');
             $expiresAt = CarbonImmutable::create($expiresAt);
+			$pp = new ProductPassport(
+				$this->faker->firstName,
+				[
+					'type1',
+					'type2',
+					'type3',
+				]
+			);
+			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
 
             $product = new FoodProduct(
                 name: $name,
@@ -38,6 +48,7 @@ class FoodProductFixtures extends AbstractFixtures implements FixtureGroupInterf
                 description: $description,
                 isPublic: $isPublic,
                 expiresAt: $expiresAt,
+                passport: $productPassport,
             );
 
             $manager->persist($product);

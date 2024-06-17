@@ -4,6 +4,7 @@ namespace App\Entity\Product;
 
 use App\Repository\ToyProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\ProductPassport;
 
 #[ORM\Entity(repositoryClass: ToyProductRepository::class)]
 class ToyProduct extends Product
@@ -13,6 +14,7 @@ class ToyProduct extends Product
         ?string $description = null,
         ?string $price = null,
         bool $isPublic = false,
+        ?ProductPassport $passport = null,
         #[ORM\Column]
         private ?int $forKidsMoreThan = null,
     ) {
@@ -21,6 +23,7 @@ class ToyProduct extends Product
             description: $description,
             price: $price,
             isPublic: $isPublic,
+            passport: $passport,
         );
     }
 

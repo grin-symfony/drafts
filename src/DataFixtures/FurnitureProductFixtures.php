@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use App\Entity\ProductPassport;
 
 class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupInterface//, DependentFixtureInterface
 {
@@ -31,6 +32,15 @@ class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupI
             $description = $this->faker->text();
             $isPublic = $this->faker->boolean;
             $color = $this->getColor();
+			$pp = new ProductPassport(
+				$this->faker->firstName,
+				[
+					'type1',
+					'type2',
+					'type33',
+				]
+			);
+			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
 
             $product = new FurnitureProduct(
                 name: $name,
@@ -38,6 +48,7 @@ class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupI
                 description: $description,
                 isPublic: $isPublic,
                 color: $color,
+                passport: $productPassport,
             );
 
             $manager->persist($product);

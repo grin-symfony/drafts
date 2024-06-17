@@ -89,6 +89,7 @@ use App\Entity\Product\FurnitureProduct;
 use App\Entity\Product\ToyProduct;
 use App\Entity\Product\Product;
 use App\Entity\UserPassport;
+use App\Entity\ProductPassport;
 
 class HomeController extends AbstractController
 {
@@ -103,12 +104,20 @@ class HomeController extends AbstractController
         UrlHelper $url,
         EntityManagerInterface $em,
         $faker,
-		UserPassport $userPassport,
+		//Product $obj,
     ): Response {
 
-		$userPassport->setName($faker->name);
-		$em->flush();
-		\dd(1);
+		$q = $em->createQuery("
+			SELECT pp.id pp_id
+			FROM ".ProductPassport::class." pp
+			WHERE :v MEMBER OF pp.category
+		")
+			//->setMaxResults(1)
+			->setParameters([
+				'v' => 'type1',
+		]);
+		
+		\dd($q->getResult());
 
         $result = $em->createQuery('
 			SELECT p.id + p.price, p.name AS HIDDEN name 

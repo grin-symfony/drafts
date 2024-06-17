@@ -50,6 +50,18 @@
     "green-symfony/web-app-bundle": {
         "version": "1.0.0"
     },
+    "grin-symfony/command-bundle": {
+        "version": "1.1.1"
+    },
+    "grin-symfony/env-processor-bundle": {
+        "version": "1.0.0"
+    },
+    "grin-symfony/service-bundle": {
+        "version": "1.0.0"
+    },
+    "grin-symfony/web-app-bundle": {
+        "version": "1.0.0"
+    },
     "symfony-bundles/redis-bundle": {
         "version": "3.1",
         "recipe": {

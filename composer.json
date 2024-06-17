@@ -11,10 +11,10 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
         "fzaninotto/faker": "^1.5",
-        "green-symfony/command-bundle": ">=1.0",
-        "green-symfony/env-processor-bundle": ">=1.0",
-        "green-symfony/service-bundle": ">=1.0",
-        "green-symfony/web-app-bundle": "^1.0",
+        "grin-symfony/command-bundle": ">=1.0",
+        "grin-symfony/env-processor-bundle": ">=1.0",
+        "grin-symfony/service-bundle": ">=2.0",
+        "grin-symfony/web-app-bundle": "^1.0",
         "nesbot/carbon": "^3.5",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpdocumentor/type-resolver": "^1.8",
@@ -47,19 +47,19 @@
 	"repositories": [
 		{
 			"type": "path",
-			"url": "./bundles/green-symfony/service-bundle"
+			"url": "./bundles/grin-symfony/service-bundle"
 		},
 		{
 			"type": "path",
-			"url": "./bundles/green-symfony/command-bundle"
+			"url": "./bundles/grin-symfony/command-bundle"
 		},
 		{
 			"type": "path",
-			"url": "./bundles/green-symfony/env-processor-bundle"
+			"url": "./bundles/grin-symfony/env-processor-bundle"
 		},
 		{
 			"type": "path",
-			"url": "./bundles/green-symfony/web-app-bundle"
+			"url": "./bundles/grin-symfony/web-app-bundle"
 		}
 	],
     "require-dev": {

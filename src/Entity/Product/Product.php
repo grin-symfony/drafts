@@ -20,6 +20,7 @@ use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use App\Entity\ProductPassport;
 
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'type', type: 'string')]
@@ -79,6 +80,9 @@ abstract class Product
             'app.notifier.admin',
         ])]
         protected bool $isPublic = false,
+		#[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'])]
+        #[ORM\JoinColumn(nullable: true)]
+		protected readonly ?ProductPassport $passport,
     ) {
     }
 

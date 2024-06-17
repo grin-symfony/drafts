@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use App\Entity\ProductPassport;
 
 class ToyProductFixtures extends AbstractFixtures implements FixtureGroupInterface//, DependentFixtureInterface
 {
@@ -30,13 +31,23 @@ class ToyProductFixtures extends AbstractFixtures implements FixtureGroupInterfa
             $description = $this->faker->text();
             $isPublic = $this->faker->boolean;
             $forKidsMoreThan = $this->faker->randomElement([18, 20, 5, 10]);
-
+			$pp = new ProductPassport(
+				$this->faker->firstName,
+				[
+					'type11',
+					'type22',
+					'type3',
+				]
+			);
+			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
+			
             $product = new ToyProduct(
                 name: $name,
                 price: $price,
                 description: $description,
                 isPublic: $isPublic,
                 forKidsMoreThan: $forKidsMoreThan,
+                passport: $productPassport,
             );
 
             $manager->persist($product);

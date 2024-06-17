@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ac431c6c51e7ea9f42fb5d623a4579e",
+    "content-hash": "810ace4c91db1daff701cd64be6b0365",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1351,16 +1351,16 @@
             "time": "2015-05-29T06:29:14+00:00"
         },
         {
-            "name": "green-symfony/command-bundle",
+            "name": "grin-symfony/command-bundle",
             "version": "1.1.1",
             "dist": {
                 "type": "path",
-                "url": "./bundles/green-symfony/command-bundle",
-                "reference": "f1bb766a50a5020c444b674c4dcee37b0f4baeb8"
+                "url": "./bundles/grin-symfony/command-bundle",
+                "reference": "a6db8f85f37e5b74678e1be4455e3376c17fdbea"
             },
             "require": {
-                "green-symfony/env-processor-bundle": ">=1",
-                "green-symfony/service-bundle": ">=1",
+                "grin-symfony/env-processor-bundle": ">=1",
+                "grin-symfony/service-bundle": ">=1",
                 "nesbot/carbon": ">=2",
                 "php": ">=7",
                 "symfony/config": ">=6",
@@ -1382,29 +1382,29 @@
             ],
             "authors": [
                 {
-                    "name": "Grigory Koblitsky",
-                    "email": "son5-29@mail.ru"
+                    "name": "Grigory Koblitskiy",
+                    "email": "grin180898@mail.ru"
                 }
             ],
             "description": "Commands for extending into Symfony Application.",
             "keywords": [
                 "command-bundle",
-                "green-symfony"
+                "grin-symfony"
             ],
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "green-symfony/env-processor-bundle",
+            "name": "grin-symfony/env-processor-bundle",
             "version": "1.0.0",
             "dist": {
                 "type": "path",
-                "url": "./bundles/green-symfony/env-processor-bundle",
-                "reference": "c44b9992330f748a3c2c271dca73b7f02441df5c"
+                "url": "./bundles/grin-symfony/env-processor-bundle",
+                "reference": "b117c65bee0b5c8b570d639dd40d57ce882c1ee1"
             },
             "require": {
-                "green-symfony/service-bundle": ">=1",
+                "grin-symfony/service-bundle": ">=1",
                 "php": ">=7",
                 "symfony/config": ">=6",
                 "symfony/dependency-injection": ">=6",
@@ -1429,19 +1429,19 @@
             "description": "Env rocessors for extending into Symfony Application.",
             "keywords": [
                 "env-processor-bundle",
-                "green-symfony"
+                "grin-symfony"
             ],
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "green-symfony/service-bundle",
+            "name": "grin-symfony/service-bundle",
             "version": "2.0.0",
             "dist": {
                 "type": "path",
-                "url": "./bundles/green-symfony/service-bundle",
-                "reference": "d0cdc36abf9c9880c932e61035074159a5e0bfb1"
+                "url": "./bundles/grin-symfony/service-bundle",
+                "reference": "0dbb952a131e511a2cf53389b9aba5f0fee48ee0"
             },
             "require": {
                 "fzaninotto/faker": ">=1",
@@ -1475,7 +1475,7 @@
             ],
             "description": "Commonly used symfony services for extending into Symfony Application.",
             "keywords": [
-                "green-symfony",
+                "grin-symfony",
                 "service-bundle"
             ],
             "transport-options": {
@@ -1483,12 +1483,12 @@
             }
         },
         {
-            "name": "green-symfony/web-app-bundle",
+            "name": "grin-symfony/web-app-bundle",
             "version": "1.0.0",
             "dist": {
                 "type": "path",
-                "url": "./bundles/green-symfony/web-app-bundle",
-                "reference": "4ce47791b96be12519a725ef118b45f5fdc8839b"
+                "url": "./bundles/grin-symfony/web-app-bundle",
+                "reference": "12b7fe4e8ca66838b213be4ddffc23ab240c5e06"
             },
             "require": {
                 "doctrine/doctrine-bundle": ">=2",
@@ -1497,7 +1497,7 @@
                 "ext-ctype": "*",
                 "ext-iconv": "*",
                 "fzaninotto/faker": ">=1",
-                "green-symfony/service-bundle": ">=1.0",
+                "grin-symfony/service-bundle": ">=1.0",
                 "nesbot/carbon": ">=2",
                 "php": ">=8",
                 "phpdocumentor/reflection-docblock": ">=5",
@@ -1549,7 +1549,7 @@
             ],
             "description": "Commonly used parts for Symfony Web Application.",
             "keywords": [
-                "green-symfony",
+                "grin-symfony",
                 "web-app-bundle"
             ],
             "transport-options": {
