@@ -108,13 +108,13 @@ class HomeController extends AbstractController
     ): Response {
 
 		$q = $em->createQuery("
-			SELECT pp.id pp_id
-			FROM ".ProductPassport::class." pp
-			WHERE :v MEMBER OF pp.category
-		")
+			SELECT a.id, SIZE(a.category)
+			FROM ".ProductPassport::class." a
+			GROUP BY a.id"
+		)
 			//->setMaxResults(1)
 			->setParameters([
-				'v' => 'type1',
+			//	'v' => 'type1',
 		]);
 		
 		\dd($q->getResult());
