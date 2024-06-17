@@ -1,0 +1,4 @@
+framework:
+    messenger:
+        buses:
+            gs_generic_parts.messenger.bus:     ~

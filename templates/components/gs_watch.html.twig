@@ -1,0 +1,23 @@
+{#
+	Usage:
+		{{ component('gs_watch', {
+			intervalMs:				1000,
+			
+			attr:					{
+				class:		'',
+				style:		'',
+			},
+		}) }}
+#}
+
+<div
+	{{ stimulus_controller('gs_watch', {
+		intervalMs,
+	}) }}
+	{{- attr|gs_array_to_attribute -}}
+>
+	{{- render(controller('GS\\GenericParts\\Controller\\ApiUtcDtController::index'))|trim('" \'') -}}
+	{#
+	{{ include('@GSGenericParts/templates/_placeholder.html.twig') }}
+	#}
+</div>
