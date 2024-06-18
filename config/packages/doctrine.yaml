@@ -6,6 +6,8 @@ doctrine:
                 class: Carbon\Doctrine\DateTimeType
             datetime_immutable:
                 class: Carbon\Doctrine\DateTimeImmutableType
+            key_val:
+                class: App\Doctrine\Type\KeyValType
         
         url: '%env(resolve:DATABASE_URL)%'
 
@@ -16,6 +18,12 @@ doctrine:
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
     orm:
+        dql:
+            string_functions:
+                STR_TO_UPPER: App\Doctrine\DQL\Functions\StrToUpperFunction
+            #numeric_functions:
+            #datetime_functions:
+                
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
         report_fields_where_declared: true

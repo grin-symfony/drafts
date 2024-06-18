@@ -29,6 +29,7 @@ class UserFixtures extends AbstractFixtures implements DependentFixtureInterface
             $user = new User(
                 passport: $this->getReference(UserPassport::class.$i),
             );
+			$this->addReference(self::getUserNameForProduct(false), $user);
 
             $manager->persist($user);
         }
@@ -43,6 +44,17 @@ class UserFixtures extends AbstractFixtures implements DependentFixtureInterface
 			UserPassportFixture::class,
 		];
     }
+	
+	public static function getUserNameForProduct(bool $decrement = true): string {
+		
+		if ($decrement) {
+			$usersForProductCount = self::$usersForProductCount--;
+		} else {
+			$usersForProductCount = ++self::$usersForProductCount;
+		}
+	
+		return self::class.$usersForProductCount;
+	}
 
     //###> HELPER ###
 	

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Product;
 
+use App\Entity\User;
 use App\Repository\ProductTypeRepository;
 use App\Type\Product\ProductTypes;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,18 +46,6 @@ abstract class Product
     ])]
     protected ?int $id = null;
 
-    #[ORM\Column]
-    #[Groups([
-        'app.notifier.admin',
-    ])]
-    protected ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(nullable: true)]
-    #[Groups([
-        'app.notifier.admin',
-    ])]
-    protected ?\DateTimeImmutable $updatedAt = null;
-
     public function __construct(
         #[ORM\Column(length: 255)]
         #[Groups([
@@ -83,6 +72,8 @@ abstract class Product
 		#[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'])]
         #[ORM\JoinColumn(nullable: true)]
 		protected readonly ?ProductPassport $passport,
+		#[ORM\ManyToOne(inversedBy: 'products')]
+		protected ?User $user = null,
     ) {
     }
 
@@ -135,6 +126,18 @@ abstract class Product
     public function setPublic(bool $isPublic): static
     {
         $this->isPublic = $isPublic;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -7,6 +7,7 @@ use App\Type\Product\FurnitureProductColorType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\ProductPassport;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: FurnitureProductRepository::class)]
 class FurnitureProduct extends Product
@@ -19,6 +20,7 @@ class FurnitureProduct extends Product
         ?ProductPassport $passport = null,
         #[ORM\Column(enumType: FurnitureProductColorType::class)]
         private ?FurnitureProductColorType $color = null,
+		?User $user = null,
     ) {
           parent::__construct(
               name: $name,
@@ -26,6 +28,7 @@ class FurnitureProduct extends Product
               price: $price,
               isPublic: $isPublic,
               passport: $passport,
+              user: $user,
           );
     }
 

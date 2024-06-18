@@ -11,7 +11,7 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use App\Entity\ProductPassport;
 
-class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupInterface//, DependentFixtureInterface
+class FurnitureProductFixtures extends AbstractProductFixtures implements FixtureGroupInterface, DependentFixtureInterface
 {
     public function __construct(
         $faker,
@@ -41,7 +41,8 @@ class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupI
 				]
 			);
 			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
-
+			$user = $this->getNextUser();
+			
             $product = new FurnitureProduct(
                 name: $name,
                 price: $price,
@@ -49,6 +50,7 @@ class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupI
                 isPublic: $isPublic,
                 color: $color,
                 passport: $productPassport,
+                user: $user,
             );
 
             $manager->persist($product);
@@ -60,7 +62,9 @@ class FurnitureProductFixtures extends AbstractFixtures implements FixtureGroupI
     /* DependentFixtureInterface */
     public function getDependencies()
     {
-        return [];
+        return [
+			UserFixtures::class,
+		];
     }
 
     /* FixtureGroupInterface */

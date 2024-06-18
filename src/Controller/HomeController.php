@@ -88,12 +88,13 @@ use App\Entity\Product\FoodProduct;
 use App\Entity\Product\FurnitureProduct;
 use App\Entity\Product\ToyProduct;
 use App\Entity\Product\Product;
+use App\Entity\MappedSuperclass\Passport;
 use App\Entity\UserPassport;
 use App\Entity\ProductPassport;
 
 class HomeController extends AbstractController
 {
-    #[Route(path: '/{id?31}')]
+    #[Route(path: '/{id?1}')]
     public function home(
         Request $r,
         RequestStack $requestStack,
@@ -104,20 +105,16 @@ class HomeController extends AbstractController
         UrlHelper $url,
         EntityManagerInterface $em,
         $faker,
-		//Product $obj,
+		UserPassport $obj,
     ): Response {
 
-		$q = $em->createQuery("
-			SELECT a.id, SIZE(a.category)
-			FROM ".ProductPassport::class." a
-			GROUP BY a.id"
-		)
-			//->setMaxResults(1)
-			->setParameters([
-			//	'v' => 'type1',
-		]);
+		\dd($obj);
+
+		$conn = $em->getConnection();
 		
-		\dd($q->getResult());
+		\dd($em->getRepository(UserPassport::class)->findOneBy([
+			'name' => 'Kristina',
+		])->getCreatedAt());
 
         $result = $em->createQuery('
 			SELECT p.id + p.price, p.name AS HIDDEN name 

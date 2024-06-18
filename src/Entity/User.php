@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Entity\MappedSuperclass\UserMappedSuperclass;
+use App\Entity\Product\Product;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -23,11 +26,17 @@ class User
     ])]
     private ?Uuid $id = null;
 
-    public function __construct(
-		#[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-		#[ORM\JoinColumn(nullable: false)]
-		private ?UserPassport $passport = null,
-    ) {
+    /**
+     * @var Collection<int, Product>
+     */
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'user')]
+    private Collection $products;
+
+    public function __construct(#[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+  		#[ORM\JoinColumn(nullable: false)]
+  		private ?UserPassport $passport = null)
+    {
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -43,6 +52,36 @@ class User
     public function setPassport(UserPassport $passport): static
     {
         $this->passport = $passport;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getUser() === $this) {
+                $product->setUser(null);
+            }
+        }
 
         return $this;
     }

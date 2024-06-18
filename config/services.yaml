@@ -14,7 +14,7 @@ parameters:
     ###< SESSION ###
     
     ###> Fixture ###
-    app.fixture.users:      10
+    app.fixture.users:      15
     app.fixture.product.toy:   5
     app.fixture.product.food:   5
     app.fixture.product.furniture:   5

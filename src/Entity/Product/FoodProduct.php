@@ -5,6 +5,7 @@ namespace App\Entity\Product;
 use App\Repository\FoodProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\ProductPassport;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: FoodProductRepository::class)]
 class FoodProduct extends Product
@@ -17,6 +18,7 @@ class FoodProduct extends Product
         ?ProductPassport $passport = null,
         #[ORM\Column]
         private ?\DateTimeImmutable $expiresAt = null,
+		?User $user = null,
     ) {
         parent::__construct(
             name: $name,
@@ -24,6 +26,7 @@ class FoodProduct extends Product
             price: $price,
             isPublic: $isPublic,
             passport: $passport,
+            user: $user,
         );
     }
 

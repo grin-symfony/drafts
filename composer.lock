@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "810ace4c91db1daff701cd64be6b0365",
+    "content-hash": "8a8915165b73715fe1133cff137759b0",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1295,32 +1295,30 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.5.0",
+            "version": "dev-bugfix",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d"
+                "url": "https://github.com/grin-symfony/Faker.git",
+                "reference": "5ffe7db6c80f441f150fc88008d64e64af66634b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d0190b156bcca848d401fb80f31f504f37141c8d",
-                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d",
+                "url": "https://api.github.com/repos/grin-symfony/Faker/zipball/5ffe7db6c80f441f150fc88008d64e64af66634b",
+                "reference": "5ffe7db6c80f441f150fc88008d64e64af66634b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3 || ^7.0 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "suggest": {
-                "ext-intl": "*"
+                "ext-intl": "*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
+                "squizlabs/php_codesniffer": "^2.9.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -1328,7 +1326,11 @@
                     "Faker\\": "src/Faker/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Faker\\Test\\": "test/Faker/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -1344,11 +1346,9 @@
                 "fixtures"
             ],
             "support": {
-                "issues": "https://github.com/fzaninotto/Faker/issues",
-                "source": "https://github.com/fzaninotto/Faker/tree/master"
+                "source": "https://github.com/grin-symfony/Faker/tree/bugfix"
             },
-            "abandoned": true,
-            "time": "2015-05-29T06:29:14+00:00"
+            "time": "2020-12-11T09:59:14+00:00"
         },
         {
             "name": "grin-symfony/command-bundle",
@@ -1444,7 +1444,7 @@
                 "reference": "0dbb952a131e511a2cf53389b9aba5f0fee48ee0"
             },
             "require": {
-                "fzaninotto/faker": ">=1",
+                "fzaninotto/faker": "dev-bugfix",
                 "nesbot/carbon": ">=2",
                 "php": ">=7",
                 "symfony/config": ">=6",
@@ -1488,7 +1488,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/web-app-bundle",
-                "reference": "12b7fe4e8ca66838b213be4ddffc23ab240c5e06"
+                "reference": "1edad7d071b3736b654a18f3c11b8d1a21efab23"
             },
             "require": {
                 "doctrine/doctrine-bundle": ">=2",
@@ -1496,7 +1496,7 @@
                 "doctrine/orm": ">=3",
                 "ext-ctype": "*",
                 "ext-iconv": "*",
-                "fzaninotto/faker": ">=1",
+                "fzaninotto/faker": "dev-bugfix",
                 "grin-symfony/service-bundle": ">=1.0",
                 "nesbot/carbon": ">=2",
                 "php": ">=8",
@@ -7429,7 +7429,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fzaninotto/faker": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

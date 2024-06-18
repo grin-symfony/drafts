@@ -8,6 +8,8 @@ use Doctrine\Persistence\ObjectManager;
 
 abstract class AbstractFixtures extends Fixture
 {
+	protected static $usersForProductCount = 0;
+	
     public function __construct(
         protected readonly Generator $faker,
     ) {

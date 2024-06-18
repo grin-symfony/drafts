@@ -10,7 +10,6 @@
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
-        "fzaninotto/faker": "^1.5",
         "grin-symfony/command-bundle": ">=1.0",
         "grin-symfony/env-processor-bundle": ">=1.0",
         "grin-symfony/service-bundle": ">=2.0",
@@ -42,7 +41,8 @@
         "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "7.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "fzaninotto/faker": "dev-bugfix"
     },
 	"repositories": [
 		{
@@ -60,6 +60,10 @@
 		{
 			"type": "path",
 			"url": "./bundles/grin-symfony/web-app-bundle"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/grin-symfony/Faker.git"
 		}
 	],
     "require-dev": {
