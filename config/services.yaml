@@ -48,6 +48,10 @@ services:
             $kernelProjectDir:  '%kernel.project_dir%'
             ###< PARAMS ###
             
+            ###> MESSENGER ###
+            $adminSendEmailMessage: '@app.messenger.notifier.admin_send_email'
+            ###< MESSENGER ###
+            
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -86,6 +90,12 @@ services:
             $settings:
                 locale: en_US
                 timezone: '+0000'
+    
+    app.messenger.notifier.admin_send_email:
+        class: App\Messenger\Notifier\ToAdminSendEmail
+        shared: false
+        arguments:
+            $toEmail: '%env(APP_ADMIN_EMAIL)%'
     
     ###< SERVICES ###
     

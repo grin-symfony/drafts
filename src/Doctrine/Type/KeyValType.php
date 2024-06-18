@@ -14,11 +14,15 @@ class KeyValType extends Type {
 	
 	public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string
     {
-		if (!\is_array($value)) {
-			throw new \Exception('Incorrect type');
+		if (\is_string($value)) {
+			return $value;
 		}
 		
-        return \implode(',', $value);
+		if (\is_array($value)) {
+			return \implode(',', $value);
+		}
+		
+		throw new \Exception('Incorrect type');
     }
 
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): string|array

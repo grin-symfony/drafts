@@ -105,10 +105,9 @@ class HomeController extends AbstractController
         UrlHelper $url,
         EntityManagerInterface $em,
         $faker,
-		UserPassport $obj,
+		$adminSendEmailMessage,
+		//UserPassport $obj,
     ): Response {
-
-		\dd($obj);
 
 		$conn = $em->getConnection();
 		

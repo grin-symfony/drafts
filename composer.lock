@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a8915165b73715fe1133cff137759b0",
+    "content-hash": "e0e47a4f4a5fe7d0cb0b55906192083e",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1356,7 +1356,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/command-bundle",
-                "reference": "a6db8f85f37e5b74678e1be4455e3376c17fdbea"
+                "reference": "0b4faae5d77b98f450830949f23a9cdd422e5f96"
             },
             "require": {
                 "grin-symfony/env-processor-bundle": ">=1",
@@ -1401,7 +1401,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/env-processor-bundle",
-                "reference": "b117c65bee0b5c8b570d639dd40d57ce882c1ee1"
+                "reference": "a5cd1987f0ba2cebfc0f311dda31ec540eba12dd"
             },
             "require": {
                 "grin-symfony/service-bundle": ">=1",
@@ -1441,7 +1441,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/service-bundle",
-                "reference": "0dbb952a131e511a2cf53389b9aba5f0fee48ee0"
+                "reference": "b6d83bb7d097a49930e5182f77302f840b7c5f76"
             },
             "require": {
                 "fzaninotto/faker": "dev-bugfix",
@@ -1488,7 +1488,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/web-app-bundle",
-                "reference": "1edad7d071b3736b654a18f3c11b8d1a21efab23"
+                "reference": "a18072f93989865597662638950eb5cf77595665"
             },
             "require": {
                 "doctrine/doctrine-bundle": ">=2",

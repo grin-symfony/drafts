@@ -2,16 +2,36 @@
 
 namespace App\Messenger\Notifier;
 
-class SendEmail
+use App\Messenger\AsyncMessageInterface;
+
+class SendEmail implements AsyncMessageInterface
 {
     public function __construct(
         public readonly string $toEmail,
-        public readonly string $title,
-        public readonly string $body,
-        public readonly string $bottom = '',
+        public string $title,
+        public string $body,
+        public string $bottom = '',
     ) {
     }
 
+    public function setBottom(string $v): static {
+		$this->bottom = $v;
+		
+		return $this;
+	}
+
+    public function setBody(string $v): static {
+		$this->body = $v;
+		
+		return $this;
+	}
+
+    public function setTitle(string $v): static {
+		$this->title = $v;
+		
+		return $this;
+	}
+	
     /* Alias */
     public function getTo(): string
     {
