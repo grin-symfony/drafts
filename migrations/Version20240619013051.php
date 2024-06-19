@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240618182259 extends AbstractMigration
+final class Version20240619013051 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,6 +27,7 @@ final class Version20240618182259 extends AbstractMigration
         $this->addSql('CREATE TABLE toy_product (for_kids_more_than INT NOT NULL, id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE user (id BINARY(16) NOT NULL, passport_id INT NOT NULL, UNIQUE INDEX UNIQ_8D93D649ABF410D0 (passport_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE user_passport (id INT AUTO_INCREMENT NOT NULL, last_name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, updated_at DATETIME(6) DEFAULT NULL, created_at DATETIME(6) NOT NULL, first_name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_552F8A08E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME(6) NOT NULL, available_at DATETIME(6) NOT NULL, delivered_at DATETIME(6) DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('ALTER TABLE food_product ADD CONSTRAINT FK_9CD5D895BF396750 FOREIGN KEY (id) REFERENCES product (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE furniture_product ADD CONSTRAINT FK_56AAF15BBF396750 FOREIGN KEY (id) REFERENCES product (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04ADABF410D0 FOREIGN KEY (passport_id) REFERENCES product_passport (id)');
@@ -51,5 +52,6 @@ final class Version20240618182259 extends AbstractMigration
         $this->addSql('DROP TABLE toy_product');
         $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE user_passport');
+        $this->addSql('DROP TABLE messenger_messages');
     }
 }

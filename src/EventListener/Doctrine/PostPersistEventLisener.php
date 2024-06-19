@@ -30,7 +30,6 @@ class PostPersistEventLisener
     public function __invoke(
         PostPersistEventArgs $args,
     ): void {
-
         $em = $args->getObjectManager();
         $conn = $em->getConnection();
         $dbName = $conn->getDatabase();
@@ -45,6 +44,7 @@ class PostPersistEventLisener
             ->toArray()
         ;
         //\dd($context);
+		/*
         $this->bus->dispatch(
             new SendEmail(
                 $this->adminEmail,
@@ -52,5 +52,6 @@ class PostPersistEventLisener
                 $this->serializer->serialize($entity, 'json', $context),
             )
         );
+		*/
     }
 }

@@ -18,6 +18,7 @@ doctrine:
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
     orm:
+        
         dql:
             string_functions:
                 STR_TO_UPPER: App\Doctrine\DQL\Functions\StrToUpperFunction

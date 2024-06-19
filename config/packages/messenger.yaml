@@ -6,13 +6,23 @@ framework:
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             sync: 'sync://'
+            
+            ###> ASYNC TRANSPORTS ###
+            async_high_priority:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queue_name: high_priority
             async: '%env(MESSENGER_TRANSPORT_DSN)%'
             failed: 'doctrine://default?queue_name=failed'
-
+            ###< ASYNC TRANSPORTS ###
+            
         routing:
-            #'App\Messenger\Notifier\SendEmail': async
-            'App\Messenger\AsyncMessageInterface': async
-            #'App\Messenger\*': async
+            'App\Messenger\*': async
+            'App\Messenger\AsyncMessageHighPriorityInterface': async_high_priority
+            #'App\Messenger\Notifier\SendEmail':
+            #-   sync
+            
+            #'*': sync
 
 # when@test:
 #    framework:

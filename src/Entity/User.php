@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\MappedSuperclass\UserMappedSuperclass;
+use App\Entity\UserPassport;
 use App\Entity\Product\Product;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;

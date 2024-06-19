@@ -8,8 +8,8 @@ class SendEmail implements AsyncMessageInterface
 {
     public function __construct(
         public readonly string $toEmail,
-        public string $title,
-        public string $body,
+        public string $title = '',
+        public string $body = '',
         public string $bottom = '',
     ) {
     }

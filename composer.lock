@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0e47a4f4a5fe7d0cb0b55906192083e",
+    "content-hash": "415c556ca2daae3a007d4855f850e4d6",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1356,7 +1356,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/command-bundle",
-                "reference": "0b4faae5d77b98f450830949f23a9cdd422e5f96"
+                "reference": "a76a7cc2520fa856c72488134839727eb7eff0ab"
             },
             "require": {
                 "grin-symfony/env-processor-bundle": ">=1",
@@ -1401,7 +1401,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/env-processor-bundle",
-                "reference": "a5cd1987f0ba2cebfc0f311dda31ec540eba12dd"
+                "reference": "a86b55859a976e919a64c014dbbed4000170ad7f"
             },
             "require": {
                 "grin-symfony/service-bundle": ">=1",
@@ -1422,8 +1422,8 @@
             ],
             "authors": [
                 {
-                    "name": "Grigory Koblitsky",
-                    "email": "son5-29@mail.ru"
+                    "name": "Grigory Koblitskiy",
+                    "email": "grin180898@mail.ru"
                 }
             ],
             "description": "Env rocessors for extending into Symfony Application.",
@@ -1441,7 +1441,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/service-bundle",
-                "reference": "b6d83bb7d097a49930e5182f77302f840b7c5f76"
+                "reference": "6dc288af1fdf32c664bd240b9a0968570a5830be"
             },
             "require": {
                 "fzaninotto/faker": "dev-bugfix",
@@ -1469,8 +1469,8 @@
             ],
             "authors": [
                 {
-                    "name": "Grigory Koblitsky",
-                    "email": "son5-29@mail.ru"
+                    "name": "Grigory Koblitskiy",
+                    "email": "grin180898@mail.ru"
                 }
             ],
             "description": "Commonly used symfony services for extending into Symfony Application.",
@@ -1488,7 +1488,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/grin-symfony/web-app-bundle",
-                "reference": "a18072f93989865597662638950eb5cf77595665"
+                "reference": "606993f52ce7436e6e67c5e7b2284ca7f1b894d3"
             },
             "require": {
                 "doctrine/doctrine-bundle": ">=2",
@@ -1543,8 +1543,8 @@
             ],
             "authors": [
                 {
-                    "name": "Grigory Koblitsky",
-                    "email": "son5-29@mail.ru"
+                    "name": "Grigory Koblitskiy",
+                    "email": "grin180898@mail.ru"
                 }
             ],
             "description": "Commonly used parts for Symfony Web Application.",
@@ -3144,6 +3144,78 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/doctrine-bridge/tree/v7.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-31T14:57:53+00:00"
+        },
+        {
+            "name": "symfony/doctrine-messenger",
+            "version": "v7.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/doctrine-messenger.git",
+                "reference": "d4195a8ede84526328abe12683b4479fc2589461"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/doctrine-messenger/zipball/d4195a8ede84526328abe12683b4479fc2589461",
+                "reference": "d4195a8ede84526328abe12683b4479fc2589461",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^3.6|^4",
+                "php": ">=8.2",
+                "symfony/messenger": "^6.4|^7.0",
+                "symfony/service-contracts": "^2.5|^3"
+            },
+            "conflict": {
+                "doctrine/persistence": "<1.3"
+            },
+            "require-dev": {
+                "doctrine/persistence": "^1.3|^2|^3",
+                "symfony/property-access": "^6.4|^7.0",
+                "symfony/serializer": "^6.4|^7.0"
+            },
+            "type": "symfony-messenger-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\Bridge\\Doctrine\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Doctrine Messenger Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/doctrine-messenger/tree/v7.1.1"
             },
             "funding": [
                 {

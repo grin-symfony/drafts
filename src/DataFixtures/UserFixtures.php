@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use App\Entity\UserPassport;
+use Symfony\Component\Messenger\Exception\StopWorkerException;
 
 class UserFixtures extends AbstractFixtures implements DependentFixtureInterface
 {

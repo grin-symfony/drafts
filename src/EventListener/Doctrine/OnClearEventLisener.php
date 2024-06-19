@@ -4,6 +4,7 @@ namespace App\EventListener\Doctrine;
 
 use function Symfony\Component\String\u;
 
+use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\Context\Encoder\JsonEncoderContextBuilder;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
@@ -14,6 +15,7 @@ use App\Messenger\Notifier\SendEmail;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Messenger\Envelope;
 
 #[AsDoctrineListener(
     event: Events::onClear,
@@ -30,13 +32,19 @@ class OnClearEventLisener
     public function __invoke(
         OnClearEventArgs $args,
     ): void {
-
-        $this->bus->dispatch(
-            new SendEmail(
-                $this->adminEmail,
-                'Event happened',
-                Events::onClear,
-            )
-        );
+		/*
+		$message = new SendEmail(
+			$this->adminEmail,
+			'Event happened',
+			Events::onClear,
+		);
+		$stamps = [
+			new TransportNamesStamp([
+				'async',
+				'sync',
+			]),
+		];
+        $this->bus->dispatch(new Envelope($message, $stamps));
+		*/
     }
 }

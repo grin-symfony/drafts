@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Messenger\Notifier;
+use App\Messenger\AsyncMessageHighPriorityInterface;
 
-class ToAdminSendEmail extends SendEmail
+class ToAdminSendEmail extends SendEmail implements AsyncMessageHighPriorityInterface
 {
     public function __construct(
         string $toEmail,

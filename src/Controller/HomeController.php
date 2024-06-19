@@ -91,6 +91,15 @@ use App\Entity\Product\Product;
 use App\Entity\MappedSuperclass\Passport;
 use App\Entity\UserPassport;
 use App\Entity\ProductPassport;
+use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
+use Symfony\Component\Serializer\Context\Encoder\JsonEncoderContextBuilder;
+use App\Messenger\Notifier\SendEmail;
+use App\Messenger\Notifier\ToAdminSendEmail;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\Events;
+use Symfony\Component\Messenger\Exception\StopWorkerException;
 
 class HomeController extends AbstractController
 {
@@ -106,14 +115,28 @@ class HomeController extends AbstractController
         EntityManagerInterface $em,
         $faker,
 		$adminSendEmailMessage,
+		$adminEmail,
+		MessageBusInterface $bus,
 		//UserPassport $obj,
     ): Response {
-
-		$conn = $em->getConnection();
 		
-		\dd($em->getRepository(UserPassport::class)->findOneBy([
-			'name' => 'Kristina',
-		])->getCreatedAt());
+		//throw $this->createNotFoundException();
+		//throw new StopWorkerException;
+		
+		$message1 = new SendEmail(
+			$adminEmail,
+			'Event happened',
+			__METHOD__,
+		);
+		
+		$message2 = new ToAdminSendEmail(
+			'Event happened HIGH PRIORITY',
+			__METHOD__,
+		);
+        $bus->dispatch(new Envelope($message1));
+		$bus->dispatch(new Envelope($message2));
+
+		return $this->render('home/home.html.twig');
 
         $result = $em->createQuery('
 			SELECT p.id + p.price, p.name AS HIDDEN name 
