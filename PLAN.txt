@@ -23,11 +23,12 @@ SYMFONY DOCTRINE
 	make:fixtures
 SYMFONY MESSENGER
 	DIRECTLY
-	https://symfony.com/doc/current/messenger.html
 	https://symfony.com/doc/current/messenger/custom-transport.html
 	https://symfony.com/doc/current/scheduler.html
 	https://github.com/sroze/messenger-enqueue-transport
 	Любимый https://martinfowler.com/bliki/CQRS.html
+	?
+	есть или нет транзакиии в handlers
 	
 SYMFONY PROPERTY ACCESS COMPONENT
 SYMFONY PROPERTY INFO COMPONENT

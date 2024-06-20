@@ -50,6 +50,7 @@ services:
             
             ###> MESSENGER ###
             $adminSendEmailMessage: '@app.messenger.notifier.admin_send_email'
+            $get: '@gs_web_app.messenger.query'
             ###< MESSENGER ###
             
     # makes classes in src/ available to be used as services

@@ -96,10 +96,13 @@ use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuild
 use Symfony\Component\Serializer\Context\Encoder\JsonEncoderContextBuilder;
 use App\Messenger\Notifier\SendEmail;
 use App\Messenger\Notifier\ToAdminSendEmail;
+use App\Messenger\Notifier\NotifierHandlers;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\Events;
 use Symfony\Component\Messenger\Exception\StopWorkerException;
+use App\Messenger\Test\Query\ListUsers;
+use Symfony\Component\Messenger\Handler\Acknowledger;
 
 class HomeController extends AbstractController
 {
@@ -118,8 +121,8 @@ class HomeController extends AbstractController
 		$adminEmail,
 		MessageBusInterface $bus,
 		//UserPassport $obj,
+		$get,
     ): Response {
-		
 		
 		
 		//throw $this->createNotFoundException();
@@ -129,8 +132,18 @@ class HomeController extends AbstractController
 			'Event happened HIGH PRIORITY',
 			__METHOD__,
 		);
-		$bus->dispatch(new Envelope($message));
-
+		
+		$ack = new Acknowledger(
+			NotifierHandlers::class,
+			static fn($e, $r) => true,
+		);
+		$bus->dispatch($message, $ack);
+		//$bus->dispatch($message);
+		//$rest = $bus->dispatch($message);
+		//$rest = $bus->dispatch($message);
+		
+		//\dump('$rest', $rest);
+		
 		return $this->render('home/home.html.twig');
 
         $result = $em->createQuery('

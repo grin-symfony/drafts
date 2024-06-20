@@ -71,7 +71,7 @@ abstract class Product
         protected bool $isPublic = false,
 		#[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'])]
         #[ORM\JoinColumn(nullable: true)]
-		protected readonly ?ProductPassport $passport,
+		protected ?ProductPassport $passport,
 		#[ORM\ManyToOne(inversedBy: 'products')]
 		protected ?User $user = null,
     ) {
@@ -80,6 +80,18 @@ abstract class Product
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPassport(): ?ProductPassport
+    {
+        return $this->passport;
+    }
+
+    public function setPassport(?ProductPassport $var): static
+    {
+        $this->passport = $var;
+
+        return $this;
     }
 
     public function getName(): ?string
