@@ -120,21 +120,16 @@ class HomeController extends AbstractController
 		//UserPassport $obj,
     ): Response {
 		
+		
+		
 		//throw $this->createNotFoundException();
 		//throw new StopWorkerException;
 		
-		$message1 = new SendEmail(
-			$adminEmail,
-			'Event happened',
-			__METHOD__,
-		);
-		
-		$message2 = new ToAdminSendEmail(
+		$message = new ToAdminSendEmail(
 			'Event happened HIGH PRIORITY',
 			__METHOD__,
 		);
-        $bus->dispatch(new Envelope($message1));
-		$bus->dispatch(new Envelope($message2));
+		$bus->dispatch(new Envelope($message));
 
 		return $this->render('home/home.html.twig');
 

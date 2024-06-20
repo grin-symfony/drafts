@@ -1,0 +1,112 @@
+ALWAYS SYMFONY BIN/CONSOLE TOOLS
+|
+SYMFONY ROUTE
+	?
+	RequestStack or Request
+	use Session in stateless route
+SYMFONY SECRETS
+SYMFONY CONTROLLER
+	?
+	#[MapUploadedFile] UploadedFile $filename
+SYMFONY COOKIE
+SYMFONY SESSION
+SYMFONY HTTP FOUNDATION
+SYMFONY DOCTRINE
+	?
+	https://habr.com/ru/companies/wunderfund/articles/685894/
+	https://symfony.com/doc/current/session.html#migrating-between-session-handlers
+	toIterable https://symfony.com/doc/current/components/http_foundation.html#streaming-a-json-response
+	разница ObjectManager EntityManager #[MapEntity(objectManager: '')]
+	гидротация только одного объекта
+	разница Query::execute Query::getResult
+	https://github.com/stof/StofDoctrineExtensionsBundle
+	make:fixtures
+SYMFONY MESSENGER
+	DIRECTLY
+	https://symfony.com/doc/current/messenger.html
+	https://symfony.com/doc/current/messenger/custom-transport.html
+	https://symfony.com/doc/current/scheduler.html
+	https://github.com/sroze/messenger-enqueue-transport
+	Любимый https://martinfowler.com/bliki/CQRS.html
+	
+SYMFONY PROPERTY ACCESS COMPONENT
+SYMFONY PROPERTY INFO COMPONENT
+SYMFONY EXPRESSION LANGUAGE
+SYMFONY SERVICE CONTAINER https://symfony.com/doc/current/service_container.html
+	?
+	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
+SYMFONY EVENTS
+	?
+	поймать WorkerMessageRetriedEvent
+TWIG
+SYMFONY TWIG COMPONENTS
+SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html#configuration-parameters
+SYMFONY FORMS
+SYMFONY OPTIONS RESOLVER
+SYMFONY VALIDATOR
+SYMFONY UPLOAD FILES
+SYMFONY CACHE
+	?
+	$request->getETags()
+SYMFONY SECURITY
+	?
+	Autowiring: [ #[CurrentUser] User $user / User $user ]
+	Какая разница между User and SecurityToken (UserValueResolver, SecurityTokenValueResolver)
+	security-http/Attribute/CurrentUser.php
+	https://symfony.com/doc/current/doctrine/registration_form.html
+SYMFONY EXTENTIONS
+SYMFONY MONOLOG
+SYMFONY YAML TAGS
+SYMFONY ENV PROCESSOR
+SYMFONY YAML PARSER
+SYMFONY CONTAINER BUILDER
+	?
+	https://github.com/violet-php/class-scanner
+###> EXCERPTS TO ANSWER ###
+By default, the URLs generated for web assets use the same default_uri value, but you can change it with the asset.request_context.base_path and asset.request_context.secure container parameters.
+###< EXCERPTS TO ANSWER ###
+SYMFONY BUNDLES
+	?
+	Configuration addDefaultChildrenIfNoneSet
+SYMFONY MAILER
+SYMFONY PROFILER
+SYMFONY WORKFLOW
+SYMFONY LOCK
+SYMFONY RATE LIMITER https://symfony.com/doc/current/rate_limiter.html#/rate-limiter
+	?
+	настроить rate_limiter для транспорта messenger / rate_limiter blocks the whole worker (for rate limited transport you need to create a separate worker)
+SYMFONY SERIALIZER
+SYMFONY FILESYSTEM
+SYMFONY Process Component https://symfony.com/doc/current/components/process.html
+SYMFONY REDIS BUNDLE
+SYMFONY TESTS
+	?
+	https://symfony.com/doc/current/components/http_foundation.html#simulating-a-request
+	https://symfony.com/doc/current/controller/error_pages.html#testing-error-pages-during-development
+	https://symfony.com/doc/current/components/clock.html
+	https://symfony.com/doc/current/testing/database.html
+	https://symfony.com/doc/current/messenger.html#in-memory-transport
+SYMFONY MY ADMIN
+###> VIEW ###
+SYMFONY LIVE COMPONENTS
+HOTWIRE: STIMULUS/TURBO/STRADA
+SYMFONY WebLink
+SYMFONY WEBPACK ENCORE
+Framework Configuration Reference https://symfony.com/doc/current/reference/configuration/framework.html#reference-cache-prefix-seed
+###> JS ###
+SYMFONY BUNDLE FOSJsRoutingBundle (route -> uri in js)
+SYMFONY BUNDLE FOSHttpCacheBundle (invalidate cache)
+SYMFONY COMPONENTS: https://symfony.com/components
+AMQP
+	?
+	https://habr.com/ru/articles/62502/
+	https://www.rabbitmq.com/tutorials/tutorial-one-php
+	https://symfony.com/doc/current/messenger.html#amqp-transport
+	https://github.com/cloudamqp/amqproxy
+Beanstalkd Transport
+	DIRECTLY
+	https://habr.com/ru/companies/shopozzcom/articles/240483/
+PRODUCTION
+	?
+	process manager Supervisor or systemd for messenger	
+	проверить timezone у messenger doctrine
