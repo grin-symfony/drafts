@@ -65,6 +65,7 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+
     ###> ROUTER ###
     App\Service\Router\AttributeRouterReader:
         class: App\Service\Router\AttributeRouterReader
@@ -73,9 +74,23 @@ services:
     ###< ROUTER ###
     
     
+    _instanceof:
+        
+        ###> MESSENGER ###
+        App\Contract\Messenger\CommandBusHandlerInterface:
+            tags:
+            -   name:   'messenger.message_handler'
+                bus:    'command.bus'
+
+        App\Contract\Messenger\EventBusHandlerInterface:
+            tags:
+            -   name:   'messenger.message_handler'
+                bus:    'event.bus'
+        ###< MESSENGER ###
+            
+            
     ###> VALUE RESOLVER ###
     ###< VALUE RESOLVER ###
-    
     
     ###> SERVICES ###
     app.ru_12_carbon:
@@ -98,6 +113,9 @@ services:
         arguments:
             $toEmail: '%env(APP_ADMIN_EMAIL)%'
     
+    app.messenger.middleware.add_handler_argument_from:
+        abstract: true
+        class: App\Messenger\Middleware\AddHandlerArgumentFrom
     ###< SERVICES ###
     
     

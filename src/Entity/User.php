@@ -33,15 +33,15 @@ class User
     private Collection $products;
 
     public function __construct(#[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-  		#[ORM\JoinColumn(nullable: false)]
-  		private ?UserPassport $passport = null)
+        #[ORM\JoinColumn(nullable: false)]
+        private ?UserPassport $passport = null)
     {
         $this->products = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
     {
-		return $this->id;
+        return $this->id;
     }
 
     public function getPassport(): ?UserPassport

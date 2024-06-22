@@ -103,6 +103,7 @@ use Doctrine\ORM\Events;
 use Symfony\Component\Messenger\Exception\StopWorkerException;
 use App\Messenger\Test\Query\ListUsers;
 use Symfony\Component\Messenger\Handler\Acknowledger;
+use Symfony\Component\Messenger\Stamp\ValidationStamp;
 
 class HomeController extends AbstractController
 {
@@ -117,34 +118,24 @@ class HomeController extends AbstractController
         UrlHelper $url,
         EntityManagerInterface $em,
         $faker,
-		$adminSendEmailMessage,
-		$adminEmail,
-		MessageBusInterface $bus,
-		//UserPassport $obj,
-		$get,
+        $adminSendEmailMessage,
+        $adminEmail,
+        //MessageBusInterface $bus,
+        MessageBusInterface $messengerBusHandlerHasRouterContext,
+        MessageBusInterface $bus,
+        MessageBusInterface $eventBus,
+        //UserPassport $obj,
+        $get,
     ): Response {
-		
-		
-		//throw $this->createNotFoundException();
-		//throw new StopWorkerException;
-		
-		$message = new ToAdminSendEmail(
-			'Event happened HIGH PRIORITY',
-			__METHOD__,
-		);
-		
-		$ack = new Acknowledger(
-			NotifierHandlers::class,
-			static fn($e, $r) => true,
-		);
-		$bus->dispatch($message, $ack);
-		//$bus->dispatch($message);
-		//$rest = $bus->dispatch($message);
-		//$rest = $bus->dispatch($message);
-		
-		//\dump('$rest', $rest);
-		
-		return $this->render('home/home.html.twig');
+
+        $message = new ToAdminSendEmail(
+            'Event happened HIGH PRIORITY',
+        );
+
+        //\dump($get(new ListUsers()));
+        $eventBus->dispatch($message);
+
+        return $this->render('home/home.html.twig');
 
         $result = $em->createQuery('
 			SELECT p.id + p.price, p.name AS HIDDEN name 

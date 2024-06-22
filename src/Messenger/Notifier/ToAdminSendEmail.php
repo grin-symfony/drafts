@@ -12,11 +12,11 @@ class ToAdminSendEmail extends AbstractSendEmail implements AsyncMessageHighPrio
         string $body = '',
         string $bottom = '',
     ) {
-		parent::__construct(
-			toEmail: $toEmail,
-			title: $title,
-			body: $body,
-			bottom: $bottom,
-		);
-    }	
+        parent::__construct(
+            toEmail: $toEmail,
+            title: $title,
+            body: $body,
+            bottom: $bottom,
+        );
+    }
 }

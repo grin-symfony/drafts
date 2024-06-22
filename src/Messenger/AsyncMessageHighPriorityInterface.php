@@ -2,4 +2,6 @@
 
 namespace App\Messenger;
 
-interface AsyncMessageHighPriorityInterface {}
+interface AsyncMessageHighPriorityInterface
+{
+}

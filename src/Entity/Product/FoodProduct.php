@@ -18,7 +18,7 @@ class FoodProduct extends Product
         ?ProductPassport $passport = null,
         #[ORM\Column]
         private ?\DateTimeImmutable $expiresAt = null,
-		?User $user = null,
+        ?User $user = null,
     ) {
         parent::__construct(
             name: $name,

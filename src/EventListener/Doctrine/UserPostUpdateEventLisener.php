@@ -24,10 +24,10 @@ class UserPostUpdateEventLisener
         User $user,
         PostUpdateEventArgs $args,
     ): void {
-		/*
+        /*
         $this->bus->dispatch(
             new SendEmail($user->getEmail(), Events::postUpdate, \get_class($user) . ' ' . $user->getId())
         );
-		*/
+        */
     }
 }

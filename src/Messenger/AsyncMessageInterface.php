@@ -2,4 +2,6 @@
 
 namespace App\Messenger;
 
-interface AsyncMessageInterface {}
+interface AsyncMessageInterface
+{
+}

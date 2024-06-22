@@ -32,17 +32,17 @@ class FoodProductFixtures extends AbstractProductFixtures implements FixtureGrou
             $isPublic = $this->faker->boolean;
             $expiresAt = $this->faker->dateTimeBetween(endDate: '+30 years');
             $expiresAt = CarbonImmutable::create($expiresAt);
-			$pp = new ProductPassport(
-				$this->faker->firstName,
-				[
-					'type1',
-					'type2',
-					'type3',
-				]
-			);
-			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
-			$user = $this->getNextUser();
-			
+            $pp = new ProductPassport(
+                $this->faker->firstName,
+                [
+                    'type1',
+                    'type2',
+                    'type3',
+                ]
+            );
+            $productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
+            $user = $this->getNextUser();
+
             $product = new FoodProduct(
                 name: $name,
                 price: $price,
@@ -63,8 +63,8 @@ class FoodProductFixtures extends AbstractProductFixtures implements FixtureGrou
     public function getDependencies()
     {
         return [
-			UserFixtures::class,
-		];
+            UserFixtures::class,
+        ];
     }
 
     /* FixtureGroupInterface */

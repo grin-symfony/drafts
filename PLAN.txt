@@ -29,6 +29,9 @@ SYMFONY MESSENGER
 	Любимый https://martinfowler.com/bliki/CQRS.html
 	?
 	есть или нет транзакиии в handlers
+	Как в BatchHandler отправить Acknowledger
+	обязательно ли оставлять doctrine_ping_connection middleware после handle_message
+	почему middleware вызывается дважды от GET, и от WORKER
 	
 SYMFONY PROPERTY ACCESS COMPONENT
 SYMFONY PROPERTY INFO COMPONENT
@@ -63,6 +66,7 @@ SYMFONY YAML PARSER
 SYMFONY CONTAINER BUILDER
 	?
 	https://github.com/violet-php/class-scanner
+	Yaml::PARSE_CONSTANT add into gs_service to allow !const 'GS\WebApp\Type\Messenger\BusTypes::QUERY_BUS' into C:\Рабочий стол\PHP SYMFONY\__SANDBOX__\SYMFONY 7\bundles\grin-symfony\web-app-bundle\config\services.yaml
 ###> EXCERPTS TO ANSWER ###
 By default, the URLs generated for web assets use the same default_uri value, but you can change it with the asset.request_context.base_path and asset.request_context.secure container parameters.
 ###< EXCERPTS TO ANSWER ###
@@ -77,6 +81,8 @@ SYMFONY RATE LIMITER https://symfony.com/doc/current/rate_limiter.html#/rate-lim
 	?
 	настроить rate_limiter для транспорта messenger / rate_limiter blocks the whole worker (for rate limited transport you need to create a separate worker)
 SYMFONY SERIALIZER
+	?
+	добавляет новые поля в json при serialize
 SYMFONY FILESYSTEM
 SYMFONY Process Component https://symfony.com/doc/current/components/process.html
 SYMFONY REDIS BUNDLE
@@ -111,3 +117,7 @@ PRODUCTION
 	?
 	process manager Supervisor or systemd for messenger	
 	проверить timezone у messenger doctrine
+	
+TODO
+	WebApp
+		$get, for QueryHandlerInterface ->addTag('messenger.message_handler', ['bus' => BusTypes::QUERY_BUS])

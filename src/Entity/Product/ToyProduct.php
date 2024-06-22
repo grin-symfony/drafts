@@ -26,7 +26,7 @@ class ToyProduct extends Product
             price: $price,
             isPublic: $isPublic,
             passport: $passport,
-			user: $user,
+            user: $user,
         );
     }
 

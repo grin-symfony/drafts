@@ -2,22 +2,22 @@
 
 namespace App\EventListener\Messenger;
 
-use Symfony\Component\Messenger\Event\WorkerRunningEvent;
+use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[AsEventListener(
-    event: WorkerRunningEvent::class,
+    event: WorkerMessageReceivedEvent::class,
     method: '__invoke',
 )]
-class WorkerRunningEventListener
+class WorkerMessageReceivedEventListener
 {
     public function __invoke(
-        WorkerRunningEvent $event,
+        WorkerMessageReceivedEvent $event,
         string $eventClassName,
         EventDispatcherInterface $dispatcher,
     ) {
-        //\dump(__CLASS__);
+        \dump(__CLASS__);
     }
 }

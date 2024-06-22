@@ -32,17 +32,17 @@ class FurnitureProductFixtures extends AbstractProductFixtures implements Fixtur
             $description = $this->faker->text();
             $isPublic = $this->faker->boolean;
             $color = $this->getColor();
-			$pp = new ProductPassport(
-				$this->faker->firstName,
-				[
-					'type1',
-					'type2',
-					'type33',
-				]
-			);
-			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
-			$user = $this->getNextUser();
-			
+            $pp = new ProductPassport(
+                $this->faker->firstName,
+                [
+                    'type1',
+                    'type2',
+                    'type33',
+                ]
+            );
+            $productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
+            $user = $this->getNextUser();
+
             $product = new FurnitureProduct(
                 name: $name,
                 price: $price,
@@ -63,8 +63,8 @@ class FurnitureProductFixtures extends AbstractProductFixtures implements Fixtur
     public function getDependencies()
     {
         return [
-			UserFixtures::class,
-		];
+            UserFixtures::class,
+        ];
     }
 
     /* FixtureGroupInterface */

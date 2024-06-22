@@ -32,19 +32,19 @@ class OnClearEventLisener
     public function __invoke(
         OnClearEventArgs $args,
     ): void {
-		/*
-		$message = new SendEmail(
-			$this->adminEmail,
-			'Event happened',
-			Events::onClear,
-		);
-		$stamps = [
-			new TransportNamesStamp([
-				'async',
-				'sync',
-			]),
-		];
+        /*
+        $message = new SendEmail(
+            $this->adminEmail,
+            'Event happened',
+            Events::onClear,
+        );
+        $stamps = [
+            new TransportNamesStamp([
+                'async',
+                'sync',
+            ]),
+        ];
         $this->bus->dispatch(new Envelope($message, $stamps));
-		*/
+        */
     }
 }

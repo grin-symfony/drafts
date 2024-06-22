@@ -20,7 +20,7 @@ class FurnitureProduct extends Product
         ?ProductPassport $passport = null,
         #[ORM\Column(enumType: FurnitureProductColorType::class)]
         private ?FurnitureProductColorType $color = null,
-		?User $user = null,
+        ?User $user = null,
     ) {
           parent::__construct(
               name: $name,

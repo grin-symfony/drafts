@@ -31,17 +31,17 @@ class ToyProductFixtures extends AbstractProductFixtures implements FixtureGroup
             $description = $this->faker->text();
             $isPublic = $this->faker->boolean;
             $forKidsMoreThan = $this->faker->randomElement([18, 20, 5, 10]);
-			$pp = new ProductPassport(
-				$this->faker->firstName,
-				[
-					'type11',
-					'type22',
-					'type3',
-				]
-			);
-			$productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
-			$user = $this->getNextUser();
-			
+            $pp = new ProductPassport(
+                $this->faker->firstName,
+                [
+                    'type11',
+                    'type22',
+                    'type3',
+                ]
+            );
+            $productPassport = $this->faker->numberBetween(0, 1) ? $pp : null;
+            $user = $this->getNextUser();
+
             $product = new ToyProduct(
                 name: $name,
                 price: $price,
@@ -62,8 +62,8 @@ class ToyProductFixtures extends AbstractProductFixtures implements FixtureGroup
     public function getDependencies()
     {
         return [
-			UserFixtures::class,
-		];
+            UserFixtures::class,
+        ];
     }
 
     /* FixtureGroupInterface */

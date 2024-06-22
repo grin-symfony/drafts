@@ -13,15 +13,16 @@ abstract class AbstractProductFixtures extends AbstractFixtures
         Generator $faker,
     ) {
         parent::__construct(
-			faker: $faker,
-		);
+            faker: $faker,
+        );
     }
-	
-	//###> API ###
-	
-	protected function getNextUser(): User {
-		return $this->getReference(UserFixtures::getUserNameForProduct());
-	}
-	
-	//###< API ###
+
+    //###> API ###
+
+    protected function getNextUser(): User
+    {
+        return $this->getReference(UserFixtures::getUserNameForProduct());
+    }
+
+    //###< API ###
 }

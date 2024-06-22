@@ -35,9 +35,9 @@ use App\Entity\ProductPassport;
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 abstract class Product
 {
-	use \GS\WebApp\Trait\Doctrine\UpdatedAt;
-	use \GS\WebApp\Trait\Doctrine\CreatedAt;
-	
+    use \GS\WebApp\Trait\Doctrine\UpdatedAt;
+    use \GS\WebApp\Trait\Doctrine\CreatedAt;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -69,11 +69,11 @@ abstract class Product
             'app.notifier.admin',
         ])]
         protected bool $isPublic = false,
-		#[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'])]
+        #[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'])]
         #[ORM\JoinColumn(nullable: true)]
-		protected ?ProductPassport $passport,
-		#[ORM\ManyToOne(inversedBy: 'products')]
-		protected ?User $user = null,
+        protected ?ProductPassport $passport,
+        #[ORM\ManyToOne(inversedBy: 'products')]
+        protected ?User $user = null,
     ) {
     }
 

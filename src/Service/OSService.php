@@ -7,5 +7,7 @@ use Symfony\Contracts\Service\ResetInterface;
 
 class OSService extends GSOSService implements ResetInterface
 {
-	public function reset() {}
+    public function reset()
+    {
+    }
 }
