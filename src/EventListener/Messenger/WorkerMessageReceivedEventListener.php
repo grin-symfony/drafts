@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: WorkerMessageReceivedEvent::class,
     method: '__invoke',
 )]
-class WorkerMessageReceivedEventListener
+class WorkerMessageReceivedEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        WorkerMessageReceivedEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return '(TRANSPORT) <-(RECEIVED)- (MESSAGE)';
     }
 }

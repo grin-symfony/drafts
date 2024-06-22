@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: WorkerRateLimitedEvent::class,
     method: '__invoke',
 )]
-class WorkerRateLimitedEventListener
+class WorkerRateLimitedEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        WorkerRateLimitedEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return 'RATE LIMITER';
     }
 }

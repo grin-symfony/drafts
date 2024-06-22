@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Messenger\Notifier;
+namespace App\Messenger\Test\Event;
 
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\StopWorkerException;
@@ -18,8 +18,9 @@ use Symfony\Component\Messenger\Handler\BatchHandlerTrait;
 use App\Contract\Messenger\CommandBusHandlerInterface;
 use App\Messenger\Test\Event\UserWasCreated;
 use Symfony\Component\Messenger\Message\RedispatchMessage;
+use App\Contract\Messenger\EventBusHandlerInterface;
 
-class NotifierHandlers implements CommandBusHandlerInterface
+class UserWasCreatedHandler implements EventBusHandlerInterface
 {
     public function __construct(
         private readonly ProductRepository $productRepository,
@@ -30,38 +31,18 @@ class NotifierHandlers implements CommandBusHandlerInterface
     ) {
     }
 
-    public function __invoke(
-        ToAdminSendEmail $message,
-        ?string $baseUrl = null,
-        ?string $pathInfo = null,
-    ): void {
-
-
+    public function __invoke(UserWasCreated $event): void
+    {
+        //\dump('USER WAS CREATED');
         //throw new UnrecoverableMessageHandlingException;
+        $product = $this->productRepository->find(31);
 
-        \dump('TO ADMIN EMAIL LOGIC');
+        if ($product->getPassport() === null) {
+            $product->setPassport($this->productPassportRepository->find(12));
+        } else {
+            $product->setPassport(null);
+        }
 
-        /*
-        $this->eventBus->dispatch(new UserWasCreated, [
-            new DispatchAfterCurrentBusStamp,
-        ]);
-        */
-
-        /*
-        */
-
-        /*
-        $this->bus->dispatch(new SendEmail('son5', 'son5'), [
-            new DispatchAfterCurrentBusStamp,
-        ]);
-
-        throw new Exception;
         $this->em->flush();
-        */
-        //throw new RecoverableMessageHandlingException;
-        //throw new UnrecoverableMessageHandlingException;
-        //throw new StopWorkerException('Worker stop command');
-        //$value = $this->osService('make', true, 11);
-        //\dump('Sending email to "' . $message->getTo() . '"' . \PHP_EOL . $message);
     }
 }

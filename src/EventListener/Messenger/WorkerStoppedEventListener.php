@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: WorkerStoppedEvent::class,
     method: '__invoke',
 )]
-class WorkerStoppedEventListener
+class WorkerStoppedEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        WorkerStoppedEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return '__STOP__';
     }
 }

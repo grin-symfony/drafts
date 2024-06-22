@@ -2,4 +2,6 @@
 
 namespace App\Contract\Messenger;
 
-interface CommandBusHandlerInterface {}
+interface CommandBusHandlerInterface
+{
+}

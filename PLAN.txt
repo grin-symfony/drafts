@@ -13,6 +13,7 @@ SYMFONY SESSION
 SYMFONY HTTP FOUNDATION
 SYMFONY DOCTRINE
 	?
+	бекап базы данных
 	https://habr.com/ru/companies/wunderfund/articles/685894/
 	https://symfony.com/doc/current/session.html#migrating-between-session-handlers
 	toIterable https://symfony.com/doc/current/components/http_foundation.html#streaming-a-json-response
@@ -22,18 +23,16 @@ SYMFONY DOCTRINE
 	https://github.com/stof/StofDoctrineExtensionsBundle
 	make:fixtures
 SYMFONY MESSENGER
-	DIRECTLY
-	https://symfony.com/doc/current/messenger/custom-transport.html
-	https://symfony.com/doc/current/scheduler.html
-	https://github.com/sroze/messenger-enqueue-transport
-	Любимый https://martinfowler.com/bliki/CQRS.html
 	?
 	есть или нет транзакиии в handlers
+	custom serializer for messenger
 	Как в BatchHandler отправить Acknowledger
 	обязательно ли оставлять doctrine_ping_connection middleware после handle_message
 	почему middleware вызывается дважды от GET, и от WORKER
-	
+	ещё не разу не смог отправить сообщение при исключении в command handler
+	https://github.com/sroze/messenger-enqueue-transport
 SYMFONY PROPERTY ACCESS COMPONENT
+
 SYMFONY PROPERTY INFO COMPONENT
 SYMFONY EXPRESSION LANGUAGE
 SYMFONY SERVICE CONTAINER https://symfony.com/doc/current/service_container.html
@@ -77,6 +76,8 @@ SYMFONY MAILER
 SYMFONY PROFILER
 SYMFONY WORKFLOW
 SYMFONY LOCK
+	?
+	Lock factory для Schedule
 SYMFONY RATE LIMITER https://symfony.com/doc/current/rate_limiter.html#/rate-limiter
 	?
 	настроить rate_limiter для транспорта messenger / rate_limiter blocks the whole worker (for rate limited transport you need to create a separate worker)
@@ -120,4 +121,10 @@ PRODUCTION
 	
 TODO
 	WebApp
-		$get, for QueryHandlerInterface ->addTag('messenger.message_handler', ['bus' => BusTypes::QUERY_BUS])
+		$get
+			for QueryHandlerInterface ->addTag('messenger.message_handler', ['bus' => BusTypes::QUERY_BUS])
+		-	CommandBusHandlerInterface
+			EventBusHandlerInterface
+			QueryBusHandlerInterface
+		
+		

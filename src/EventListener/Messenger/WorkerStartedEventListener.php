@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: WorkerStartedEvent::class,
     method: '__invoke',
 )]
-class WorkerStartedEventListener
+class WorkerStartedEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        WorkerStartedEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return '__START__';
     }
 }

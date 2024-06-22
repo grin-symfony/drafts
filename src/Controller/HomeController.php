@@ -104,6 +104,11 @@ use Symfony\Component\Messenger\Exception\StopWorkerException;
 use App\Messenger\Test\Query\ListUsers;
 use Symfony\Component\Messenger\Handler\Acknowledger;
 use Symfony\Component\Messenger\Stamp\ValidationStamp;
+use App\Messenger\Test\Event\UserWasCreated;
+use Symfony\Component\Console\Messenger\RunCommandMessage;
+use Symfony\Component\Scheduler\RecurringMessage;
+use Symfony\Component\Scheduler\Trigger\CronExpressionTrigger;
+use App\Messenger\Scheduler\Trigger\MondayOnlyTrigger;
 
 class HomeController extends AbstractController
 {
@@ -120,21 +125,12 @@ class HomeController extends AbstractController
         $faker,
         $adminSendEmailMessage,
         $adminEmail,
-        //MessageBusInterface $bus,
         MessageBusInterface $messengerBusHandlerHasRouterContext,
         MessageBusInterface $bus,
-        MessageBusInterface $eventBus,
-        //UserPassport $obj,
         $get,
     ): Response {
-
-        $message = new ToAdminSendEmail(
-            'Event happened HIGH PRIORITY',
-        );
-
-        //\dump($get(new ListUsers()));
-        $eventBus->dispatch($message);
-
+		
+		
         return $this->render('home/home.html.twig');
 
         $result = $em->createQuery('

@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: WorkerMessageFailedEvent::class,
     method: '__invoke',
 )]
-class WorkerMessageFailedEventListener
+class WorkerMessageFailedEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        WorkerMessageFailedEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return '- - - FAILED - - -';
     }
 }

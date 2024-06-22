@@ -3,14 +3,13 @@ framework:
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         #failure_transport: failed_default
 
-        ###> for injection $bus
         default_bus: command.bus
 
         buses:
             
             ###> MAIN BASES ###
             
-            ###> COMMAND
+            ###> COMMAND: $bus
             command.bus:
                 default_middleware:
                     enabled: true
@@ -21,7 +20,7 @@ framework:
                 -   id:         'doctrine_open_transaction_logger' # DOCTRINE TRANSACTION LOG
                 -   id:         'doctrine_transaction' # AUTO FLUSH
             
-            ###> EVENT
+            ###> EVENT: $eventBus
             event.bus:
                 default_middleware:
                     enabled: true
@@ -36,7 +35,7 @@ framework:
             # gs_web_app.messenger.query.bus
             
             ###< MAIN BASES ###
-        
+            
             messenger.bus.handler_has_router_context:
                 middleware:
                 -   id: 'app.messenger.middleware.add_handler_argument_from'
@@ -59,41 +58,28 @@ framework:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             sync: 'sync://'
             
-            ###> ASYNC TRANSPORTS ###
-            async_high_priority:
-                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                #serializer: 'App\Messenger\Serializer\DefaultSerializer'
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queue_name: async
                 retry_strategy:
                     max_retries: 3
-                    delay: 1000
+                    delay: 3000
                     multiplier: 2
-                    max_delay: 1000 
-                options:
-                    queue_name: high_priority
-                
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+                    max_delay: 10000
             
-            ###> FAILURE TRANSPORTS ###
-            failed_high_priority:
-                dsn: 'doctrine://default?queue_name=failed'
+            failed:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queue_name: failed
                 retry_strategy:
                     max_retries: 10
                     delay: 1000
                     multiplier: 5
-                    max_delay: 500000
-            
-            ###< FAILURE TRANSPORTS ###
-            
-            ###< ASYNC TRANSPORTS ###
+                    max_delay: 3600000
             
         routing:
             'App\Messenger\*': async
-            'App\Messenger\AsyncMessageHighPriorityInterface': async_high_priority
-            #'App\Messenger\Notifier\SendEmail':
-            #-   sync
             
-            #'*': sync
-
 # when@test:
 #    framework:
 #        messenger:

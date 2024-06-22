@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: WorkerMessageRetriedEvent::class,
     method: '__invoke',
 )]
-class WorkerMessageRetriedEventListener
+class WorkerMessageRetriedEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        WorkerMessageRetriedEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return 'x x x RETRIED x x x';
     }
 }

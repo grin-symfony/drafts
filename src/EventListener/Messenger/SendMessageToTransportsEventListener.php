@@ -11,13 +11,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     event: SendMessageToTransportsEvent::class,
     method: '__invoke',
 )]
-class SendMessageToTransportsEventListener
+class SendMessageToTransportsEventListener extends AbstractMessengerEventListener
 {
-    public function __invoke(
-        SendMessageToTransportsEvent $event,
-        string $eventClassName,
-        EventDispatcherInterface $dispatcher,
-    ) {
-        \dump(__CLASS__);
+    protected function getMessage(): string
+    {
+        return '(DISPATCH MESSAGE) -(SEND)-> (TRANSPORT)';
     }
 }
