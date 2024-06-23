@@ -33,15 +33,15 @@ class SymfonyCacheClearSchedule
     public function __invoke(string $locale): void
     {
         $this->bus->dispatch(
-			new RunCommandMessage('cache:clear'),
-		);
+            new RunCommandMessage('cache:clear'),
+        );
         /*
-		$this->bus->dispatch(
-			new RunProcessMessage(
-				['mkdir', './New Dir'],
-				cwd: 'C:/Users/son5-/Desktop',
-			)
-		);
-		*/
+        $this->bus->dispatch(
+            new RunProcessMessage(
+                ['mkdir', './New Dir'],
+                cwd: 'C:/Users/son5-/Desktop',
+            )
+        );
+        */
     }
 }

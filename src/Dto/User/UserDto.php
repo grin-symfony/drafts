@@ -7,6 +7,9 @@ use Symfony\Component\Validator\Constraints;
 class UserDto
 {
     public function __construct(
+        /**
+         * @param $firstName
+         */
         #[Constraints\NotBlank(groups: ['strings'], allowNull: true)]
         public ?string $firstName = null,
         #[Constraints\NotBlank(groups: ['strings'], allowNull: true)]

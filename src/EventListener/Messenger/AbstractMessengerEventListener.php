@@ -14,12 +14,13 @@ abstract class AbstractMessengerEventListener
         EventDispatcherInterface $dispatcher,
     ) {
         $dop = '';
-
+		
+        if (\method_exists($event, 'getEnvelope')) {
+			$ref = new \ReflectionClass($event->getEnvelope()->getMessage());
+            $dop .= ' message(' . $ref->getShortName() . ')';
+        }
         if (\method_exists($event, 'getReceiverName')) {
             $dop .= ' transport(' . $event->getReceiverName() . ')';
-        }
-        if (\method_exists($event, 'getEnvelope')) {
-            $dop .= ' message(' . \get_debug_type($event->getEnvelope()->getMessage()) . ')';
         }
 
         $mess = self::PREFIX . ': "' . $this->getMessage() . '"' . $dop;

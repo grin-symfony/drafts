@@ -14,6 +14,7 @@ SYMFONY HTTP FOUNDATION
 SYMFONY DOCTRINE
 	?
 	бекап базы данных
+	получить запись из db по uuid
 	https://habr.com/ru/companies/wunderfund/articles/685894/
 	https://symfony.com/doc/current/session.html#migrating-between-session-handlers
 	toIterable https://symfony.com/doc/current/components/http_foundation.html#streaming-a-json-response
@@ -21,9 +22,12 @@ SYMFONY DOCTRINE
 	гидротация только одного объекта
 	разница Query::execute Query::getResult
 	https://github.com/stof/StofDoctrineExtensionsBundle
+	doctrine add hint (download from db)
 	make:fixtures
 SYMFONY MESSENGER
 	?
+	bin/console messenger:stats Transport implements MessageCountAwareInterface
+	MyTransport implements QueueReceiverInterface bin/console messenger:consume —all —queues=h
 	есть или нет транзакиии в handlers
 	custom serializer for messenger
 	Как в BatchHandler отправить Acknowledger
@@ -32,12 +36,52 @@ SYMFONY MESSENGER
 	ещё не разу не смог отправить сообщение при исключении в command handler
 	https://github.com/sroze/messenger-enqueue-transport
 SYMFONY PROPERTY ACCESS COMPONENT
-
-SYMFONY PROPERTY INFO COMPONENT
-SYMFONY EXPRESSION LANGUAGE
-SYMFONY SERVICE CONTAINER https://symfony.com/doc/current/service_container.html
 	?
+	key]1 (закрывающая квадр. скобка) не парсит
+SYMFONY PROPERTY INFO COMPONENT
+	?
+	реализовать PropertyDocBlockExtractorInterface и передать в descriptionExtractors of PropertyInfoExtractor
+SYMFONY ENV PROCESSOR
+SYMFONY YAML PARSER (TAGS)
+SYMFONY SERVICE CONTAINER
+	https://symfony.com/doc/current/configuration.html#configuration-parameters
+	https://symfony.com/doc/current/contributing/code/standards.html#service-naming-conventions
+	https://symfony.com/doc/current/service_container/alias_private.html
+	https://symfony.com/doc/current/service_container/autowiring.html
+	https://symfony.com/doc/current/service_container/calls.html
+	https://symfony.com/doc/current/service_container/compiler_passes.html
+	https://symfony.com/doc/current/service_container/configurators.html
+	https://symfony.com/doc/current/service_container/debug.html
+	https://symfony.com/doc/current/service_container/definitions.html
+	https://symfony.com/doc/current/service_container/expression_language.html
+	https://symfony.com/doc/current/service_container/factories.html
+	https://symfony.com/doc/current/service_container/import.html
+	https://symfony.com/doc/current/service_container/injection_types.html
+	https://symfony.com/doc/current/service_container/lazy_services.html
+	https://symfony.com/doc/current/service_container/optional_dependencies.html
+	https://symfony.com/doc/current/service_container/parent_services.html
+	https://symfony.com/doc/current/service_container/request.html
+	https://symfony.com/doc/current/service_container/service_closures.html
+	https://symfony.com/doc/current/service_container/service_decoration.html
+	https://symfony.com/doc/current/service_container/service_subscribers_locators.html
+	https://symfony.com/doc/current/service_container/shared.html
+	https://symfony.com/doc/current/service_container/synthetic_services.html
+	https://symfony.com/doc/current/service_container/tags.html
+	?
+	ЧТО ДЕЛАЕТ !service
+	как работает опция services: #prototype#: (from_callable:)
 	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
+	add yaml custom tag 
+		!tagged_iterator !closure !abstract
+		!!str !!float !!binary
+		!php/const !php/env !php/object
+	удалить сервис в зависимости от APP_ENV
+	провести абстрактный аргумент в compiller pass
+***
+SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
+SYMFONY EXPRESSION LANGUAGE
+SYMFONY STRING
+SYMFONY Clock Component
 SYMFONY EVENTS
 	?
 	поймать WorkerMessageRetriedEvent
@@ -51,21 +95,20 @@ SYMFONY UPLOAD FILES
 SYMFONY CACHE
 	?
 	$request->getETags()
+SYMFONY CONTAINER BUILDER
+	?
+	https://github.com/violet-php/class-scanner
+	Yaml::PARSE_CONSTANT add into gs_service to allow !const 'GS\WebApp\Type\Messenger\BusTypes::QUERY_BUS' into C:\Рабочий стол\PHP SYMFONY\__SANDBOX__\SYMFONY 7\bundles\grin-symfony\web-app-bundle\config\services.yaml
+SYMFONY EXTENTIONS
+	?
+	add doctrine functions
 SYMFONY SECURITY
 	?
 	Autowiring: [ #[CurrentUser] User $user / User $user ]
 	Какая разница между User and SecurityToken (UserValueResolver, SecurityTokenValueResolver)
 	security-http/Attribute/CurrentUser.php
 	https://symfony.com/doc/current/doctrine/registration_form.html
-SYMFONY EXTENTIONS
 SYMFONY MONOLOG
-SYMFONY YAML TAGS
-SYMFONY ENV PROCESSOR
-SYMFONY YAML PARSER
-SYMFONY CONTAINER BUILDER
-	?
-	https://github.com/violet-php/class-scanner
-	Yaml::PARSE_CONSTANT add into gs_service to allow !const 'GS\WebApp\Type\Messenger\BusTypes::QUERY_BUS' into C:\Рабочий стол\PHP SYMFONY\__SANDBOX__\SYMFONY 7\bundles\grin-symfony\web-app-bundle\config\services.yaml
 ###> EXCERPTS TO ANSWER ###
 By default, the URLs generated for web assets use the same default_uri value, but you can change it with the asset.request_context.base_path and asset.request_context.secure container parameters.
 ###< EXCERPTS TO ANSWER ###
@@ -84,6 +127,7 @@ SYMFONY RATE LIMITER https://symfony.com/doc/current/rate_limiter.html#/rate-lim
 SYMFONY SERIALIZER
 	?
 	добавляет новые поля в json при serialize
+	gs_env_csv_multiline parse with serializer
 SYMFONY FILESYSTEM
 SYMFONY Process Component https://symfony.com/doc/current/components/process.html
 SYMFONY REDIS BUNDLE
@@ -126,5 +170,6 @@ TODO
 		-	CommandBusHandlerInterface
 			EventBusHandlerInterface
 			QueryBusHandlerInterface
-		
+	GsEnvProcessor
+		fix abstractions (only with functions)
 		

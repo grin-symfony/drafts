@@ -58,7 +58,8 @@ framework:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             sync: 'sync://'
             
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 options:
                     queue_name: async
                 retry_strategy:
@@ -79,6 +80,7 @@ framework:
             
         routing:
             'App\Messenger\*': async
+            # GS\WebApp\Contract\Messenger\HasSyncTransportInterface
             
 # when@test:
 #    framework:

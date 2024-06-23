@@ -3,7 +3,7 @@
 namespace App\Messenger\Test\Query;
 
 use GS\WebApp\Contract\Messenger\QueryHandlerInterface;
-use GS\WebApp\Contract\Messenger\QueryInterface;
+use GS\WebApp\Contract\Messenger\HasSyncTransportInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use App\Repository\UserRepository;
 use GS\WebApp\Type\Messenger\BusTypes;

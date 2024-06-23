@@ -69,9 +69,9 @@ abstract class Product
             'app.notifier.admin',
         ])]
         protected bool $isPublic = false,
-        #[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'])]
+        #[ORM\OneToOne(inversedBy: 'product', cascade: ['persist', 'remove'], fetch: 'EAGER')]
         #[ORM\JoinColumn(nullable: true)]
-        protected ?ProductPassport $passport,
+        protected ?ProductPassport $passport = null,
         #[ORM\ManyToOne(inversedBy: 'products')]
         protected ?User $user = null,
     ) {

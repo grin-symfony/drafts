@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid;
 use Doctrine\ORM\AbstractQuery;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

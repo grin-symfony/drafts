@@ -4,6 +4,12 @@ namespace App\Controller;
 
 use function Symfony\component\string\u;
 
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Config\FileLocator;
 use App\Type\Product\ProductType;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -109,10 +115,19 @@ use Symfony\Component\Console\Messenger\RunCommandMessage;
 use Symfony\Component\Scheduler\RecurringMessage;
 use Symfony\Component\Scheduler\Trigger\CronExpressionTrigger;
 use App\Messenger\Scheduler\Trigger\MondayOnlyTrigger;
+use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
+use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
+use Symfony\Component\PropertyInfo\Extractor\PhpStanExtractor;
+use Symfony\Component\PropertyInfo\Extractor\SerializerExtractor;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
+use Symfony\Component\DependencyInjection\Container;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireCallable;
 
 class HomeController extends AbstractController
 {
-    #[Route(path: '/{id?1}')]
+    #[Route(path: '/{id?32}')]
     public function home(
         Request $r,
         RequestStack $requestStack,
@@ -125,13 +140,115 @@ class HomeController extends AbstractController
         $faker,
         $adminSendEmailMessage,
         $adminEmail,
+        Product $product,
         MessageBusInterface $messengerBusHandlerHasRouterContext,
         MessageBusInterface $bus,
         $get,
+		PropertyInfoExtractorInterface $pi,
+		#[Autowire(service: 'app.en_utc_carbon')]
+		$carbon,
+		#[Autowire(service: 'service_container')]
+		$container,
+		StringService $stringService,
+		#[AutowireCallable(service: StringService::class, method: 'getPath')]
+		\App\Contract\SomeInterface $i,
     ): Response {
 		
+		\dump(
+			$i->getPath('', ''),
+		);
 		
         return $this->render('home/home.html.twig');
+		
+		
+		$pa = PropertyAccess::createPropertyAccessor();
+		
+		$uesrDto = new \StdClass;
+		$uesrDto->name = 'Grin';
+		$uesrDto->login = 'alom';
+		$uesrDto->pass = '180898';
+		
+		$pathRead = $stringService->getPath(
+			$projectDir,
+			'config/config/test.yaml',
+		);
+		$pathDump = $stringService->getPath(
+			$projectDir,
+			'config/config/testDump.yaml',
+		);
+		$array = Yaml::parseFile($pathRead, Yaml::PARSE_CUSTOM_TAGS | Yaml::PARSE_CONSTANT | Yaml::PARSE_DATETIME | Yaml::PARSE_OBJECT | Yaml::PARSE_EXCEPTION_ON_INVALID_TYPE);
+
+		\dump($array);
+
+		//###>
+		$array['world']['countries'][] = [
+			'user' => $uesrDto,
+		];
+		
+		$contents = Yaml::dump($array, 10, 4, Yaml::DUMP_OBJECT);
+		$contents = Yaml::dump($array, 10, 4, Yaml::DUMP_NULL_AS_TILDE | Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_OBJECT | Yaml::DUMP_OBJECT_AS_MAP | Yaml::DUMP_EXCEPTION_ON_INVALID_TYPE);
+		\file_put_contents($pathDump, $contents);		
+		
+        $reflectionExtractor = new ReflectionExtractor();
+        $phpDocExtractor = new PhpDocExtractor();
+        $doctrineExtractor = new DoctrineExtractor($em);
+        $phpStanExtractor = new PhpStanExtractor;
+		$serializerClassMetadataFactory = new ClassMetadataFactory(new AttributeLoader());
+		$serializerExtractor = new SerializerExtractor($serializerClassMetadataFactory);
+		
+        $pii = new PropertyInfoExtractor(
+            listExtractors: [
+				//$serializerExtractor,
+                $reflectionExtractor,
+                //$doctrineExtractor,
+            ],
+            typeExtractors: [
+                $phpDocExtractor,
+                $reflectionExtractor,
+                $doctrineExtractor,
+            ],
+            descriptionExtractors: [
+                $phpDocExtractor,
+            ],
+            accessExtractors: [
+                $reflectionExtractor,
+            ],
+            initializableExtractors: [
+                $reflectionExtractor,
+            ],
+        );
+
+        $properties = $pi->getProperties(User::class, []);
+        $types = $pi->getTypes(User::class, 'products');
+        $shortDescr = $pi->getShortDescription(User::class, 'products');
+        $longDescr = $pi->getLongDescription(User::class, 'products');
+        $isReadable = $pi->isReadable(User::class, 'products');
+        $isWritable = $pi->isWritable(User::class, 'products');
+        $isInitializable = $pi->isInitializable(User::class, 'products');
+
+
+        \dump(
+            $properties,
+			/*
+			$phpDocExtractor->getDocBlock(User::class, 'products'),
+			$phpStanExtractor->getTypesFromConstructor(User::class, 'passport'),
+		foreach($types as $type) {
+			\dump(
+				$type->getBuiltInType(),
+				$type->isNullable(),
+				$type->getClassName(),
+				$type->isCollection(),
+				$type,
+			);
+		}
+			$types,
+            $shortDescr,
+            $longDescr,
+            $isReadable,
+            $isWritable,
+            $isInitializable,
+			*/
+        );
 
         $result = $em->createQuery('
 			SELECT p.id + p.price, p.name AS HIDDEN name 
@@ -388,5 +505,27 @@ class HomeController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_home_home');
+    }
+}
+
+class Person
+{
+    /**
+     * @var string[]
+     */
+    private array $children = [
+        'old value',
+    ];
+
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
+
+    public function setChildren(array $children): static
+    {
+        $this->children = $children;
+
+        return $this;
     }
 }

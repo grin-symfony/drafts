@@ -13,6 +13,7 @@ use Symfony\Component\Uid\Uuid;
 use App\Service\CarbonService;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
@@ -27,15 +28,23 @@ class User
     private ?Uuid $id = null;
 
     /**
-     * @var Collection<int, Product>
+     * This is the doctrine collection.
+     * That's no a usual array.
+     *
+     * @var Collection<int|string, Product>
      */
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'user')]
-    private Collection $products;
+	#[Ignore]
+	private Collection $products;
 
-    public function __construct(#[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+	/**
+	* @param ?UserPassport $passport
+	*/
+    public function __construct(
+        #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
         #[ORM\JoinColumn(nullable: false)]
-        private ?UserPassport $passport = null)
-    {
+        private ?UserPassport $passport = null
+    ) {
         $this->products = new ArrayCollection();
     }
 

@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    app.app: "@@" #@
+    #app.sign: '='
+    #app.app: '%env(key_val:explode:app.sign:default::key:query:url:APP_APP)%'
+
     ###> REGEXP ###
     app.regexp.digit:   '[0-9]'
     ###< REGEXP ###
@@ -61,6 +65,22 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Service/StringService.php'
+    
+    # like _instanceof only by path
+    app.messenger.command_message_handlers:
+        namespace: App\Messenger\Command\Handler\
+        resource: '../src/Messenger/Command/Handler/'
+        tags:
+        -   name: 'messenger.message_handler'
+            bus: 'command.bus'
+            
+    app.messenger.event_message_handlers:
+        namespace: App\Messenger\Event\Handler\
+        resource: '../src/Messenger/Event/Handler/'
+        tags:
+        -   name: 'messenger.message_handler'
+            bus: 'event.bus'
             
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -86,9 +106,9 @@ services:
             tags:
             -   name:   'messenger.message_handler'
                 bus:    'event.bus'
-
         ###< MESSENGER ###
-            
+        
+        
             
     ###> VALUE RESOLVER ###
     ###< VALUE RESOLVER ###
@@ -117,6 +137,26 @@ services:
     app.messenger.middleware.add_handler_argument_from:
         abstract: true
         class: App\Messenger\Middleware\AddHandlerArgumentFrom
+        
+    app.string1:
+        class: App\Service\StringService
+        arguments:
+            $v: 1
+            #$v: !abstract 'когда-то в compiller pass его планируется провести'
+        
+    app.string2:
+        class: App\Service\StringService
+        arguments:
+            $v: 2
+            #$v: !abstract 'когда-то в compiller pass его планируется провести'
+        
+    # ALIAS
+    App\Service\StringService: '@app.string1'
+    
+    #app.interface_adapter:
+    #    class: App\Contract\SomeInterface
+    #    from_callable: [!service {class: 'App\Service\StringService'}, 'getPath']
+
     ###< SERVICES ###
     
     
