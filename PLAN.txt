@@ -80,25 +80,18 @@ SYMFONY SERVICE CONTAINER
 ***
 SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
 SYMFONY EXPRESSION LANGUAGE
-SYMFONY STRING
-SYMFONY Clock Component
 SYMFONY EVENTS
 	?
 	поймать WorkerMessageRetriedEvent
 TWIG
 SYMFONY TWIG COMPONENTS
 SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html#configuration-parameters
+SYMFONY STRING
+SYMFONY Clock Component
 SYMFONY FORMS
 SYMFONY OPTIONS RESOLVER
-SYMFONY VALIDATOR
 SYMFONY UPLOAD FILES
-SYMFONY CACHE
-	?
-	$request->getETags()
-SYMFONY CONTAINER BUILDER
-	?
-	https://github.com/violet-php/class-scanner
-	Yaml::PARSE_CONSTANT add into gs_service to allow !const 'GS\WebApp\Type\Messenger\BusTypes::QUERY_BUS' into C:\Рабочий стол\PHP SYMFONY\__SANDBOX__\SYMFONY 7\bundles\grin-symfony\web-app-bundle\config\services.yaml
+SYMFONY VALIDATOR
 SYMFONY EXTENTIONS
 	?
 	add doctrine functions
@@ -108,6 +101,26 @@ SYMFONY SECURITY
 	Какая разница между User and SecurityToken (UserValueResolver, SecurityTokenValueResolver)
 	security-http/Attribute/CurrentUser.php
 	https://symfony.com/doc/current/doctrine/registration_form.html
+HOTWIRE: STIMULUS/TURBO/STRADA
+SYMFONY CACHE
+	?
+	$request->getETags()
+SYMFONY SERIALIZER
+	?
+	добавляет новые поля в json при serialize
+	gs_env_csv_multiline parse with serializer
+SYMFONY FILESYSTEM
+SYMFONY LOCK
+	?
+	Lock factory для Schedule
+SYMFONY CONTAINER BUILDER
+	?
+	https://github.com/violet-php/class-scanner
+	Yaml::PARSE_CONSTANT add into gs_service to allow !const 'GS\WebApp\Type\Messenger\BusTypes::QUERY_BUS' into C:\Рабочий стол\PHP SYMFONY\__SANDBOX__\SYMFONY 7\bundles\grin-symfony\web-app-bundle\config\services.yaml
+SYMFONY RATE LIMITER https://symfony.com/doc/current/rate_limiter.html#/rate-limiter
+	?
+	настроить rate_limiter для транспорта messenger / rate_limiter blocks the whole worker (for rate limited transport you need to create a separate worker)
+SYMFONY Process Component https://symfony.com/doc/current/components/process.html
 SYMFONY MONOLOG
 ###> EXCERPTS TO ANSWER ###
 By default, the URLs generated for web assets use the same default_uri value, but you can change it with the asset.request_context.base_path and asset.request_context.secure container parameters.
@@ -116,20 +129,8 @@ SYMFONY BUNDLES
 	?
 	Configuration addDefaultChildrenIfNoneSet
 SYMFONY MAILER
-SYMFONY PROFILER
 SYMFONY WORKFLOW
-SYMFONY LOCK
-	?
-	Lock factory для Schedule
-SYMFONY RATE LIMITER https://symfony.com/doc/current/rate_limiter.html#/rate-limiter
-	?
-	настроить rate_limiter для транспорта messenger / rate_limiter blocks the whole worker (for rate limited transport you need to create a separate worker)
-SYMFONY SERIALIZER
-	?
-	добавляет новые поля в json при serialize
-	gs_env_csv_multiline parse with serializer
-SYMFONY FILESYSTEM
-SYMFONY Process Component https://symfony.com/doc/current/components/process.html
+SYMFONY PROFILER
 SYMFONY REDIS BUNDLE
 SYMFONY TESTS
 	?
@@ -139,13 +140,10 @@ SYMFONY TESTS
 	https://symfony.com/doc/current/testing/database.html
 	https://symfony.com/doc/current/messenger.html#in-memory-transport
 SYMFONY MY ADMIN
-###> VIEW ###
 SYMFONY LIVE COMPONENTS
-HOTWIRE: STIMULUS/TURBO/STRADA
 SYMFONY WebLink
 SYMFONY WEBPACK ENCORE
 Framework Configuration Reference https://symfony.com/doc/current/reference/configuration/framework.html#reference-cache-prefix-seed
-###> JS ###
 SYMFONY BUNDLE FOSJsRoutingBundle (route -> uri in js)
 SYMFONY BUNDLE FOSHttpCacheBundle (invalidate cache)
 SYMFONY COMPONENTS: https://symfony.com/components
@@ -162,6 +160,8 @@ PRODUCTION
 	?
 	process manager Supervisor or systemd for messenger	
 	проверить timezone у messenger doctrine
+	
+	
 	
 TODO
 	WebApp
