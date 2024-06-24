@@ -12,7 +12,7 @@ use GS\Service\Service\BoolService;
 use GS\Service\Service\RegexService;
 
 //#[When(env: 'dev')]
-class StringService extends GSStringService implements \App\Contract\SomeInterface
+class StringService extends GSStringService
 {
 	public function __construct(
         ArrayService $arrayService,

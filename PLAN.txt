@@ -44,12 +44,11 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	https://symfony.com/doc/current/configuration.html#configuration-parameters
-	https://symfony.com/doc/current/contributing/code/standards.html#service-naming-conventions
-	https://symfony.com/doc/current/service_container/alias_private.html
+	
 	https://symfony.com/doc/current/service_container/autowiring.html
 	https://symfony.com/doc/current/service_container/calls.html
 	https://symfony.com/doc/current/service_container/compiler_passes.html
+	https://symfony.com/doc/current/configuration/front_controllers_and_kernel.html
 	https://symfony.com/doc/current/service_container/configurators.html
 	https://symfony.com/doc/current/service_container/debug.html
 	https://symfony.com/doc/current/service_container/definitions.html
@@ -67,8 +66,11 @@ SYMFONY SERVICE CONTAINER
 	https://symfony.com/doc/current/service_container/shared.html
 	https://symfony.com/doc/current/service_container/synthetic_services.html
 	https://symfony.com/doc/current/service_container/tags.html
+	https://symfony.com/doc/current/contributing/code/standards.html
 	?
-	ЧТО ДЕЛАЕТ !service
+	удалить env переменную в бандле, чтоб не торчал
+	что фактически делает запись service_id: ~
+	!service {class: 'CLASS_NAME'} === '@CLASS_NAME'
 	как работает опция services: #prototype#: (from_callable:)
 	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
 	add yaml custom tag 
@@ -146,22 +148,23 @@ SYMFONY WEBPACK ENCORE
 Framework Configuration Reference https://symfony.com/doc/current/reference/configuration/framework.html#reference-cache-prefix-seed
 SYMFONY BUNDLE FOSJsRoutingBundle (route -> uri in js)
 SYMFONY BUNDLE FOSHttpCacheBundle (invalidate cache)
+SYMFONY Dotenv class
 SYMFONY COMPONENTS: https://symfony.com/components
+https://symfony.com/doc/current/reference/index.html
 AMQP
 	?
 	https://habr.com/ru/articles/62502/
 	https://www.rabbitmq.com/tutorials/tutorial-one-php
 	https://symfony.com/doc/current/messenger.html#amqp-transport
 	https://github.com/cloudamqp/amqproxy
-Beanstalkd Transport
-	DIRECTLY
-	https://habr.com/ru/companies/shopozzcom/articles/240483/
+Beanstalkd Transport https://habr.com/ru/companies/shopozzcom/articles/240483/
+The Runtime Component https://symfony.com/doc/current/components/runtime.html
 PRODUCTION
 	?
 	process manager Supervisor or systemd for messenger	
 	проверить timezone у messenger doctrine
-	
-	
+	Утилиты для управления ENV_VAR https://docs.platform.sh/guides/symfony/environment-variables.html?utm_source=symfony-cloud-sign-up&utm_medium=backlink&utm_campaign=Symfony-Cloud-sign-up&utm_content=docs
+	custom env loader (configuraiton)
 	
 TODO
 	WebApp
@@ -172,4 +175,6 @@ TODO
 			QueryBusHandlerInterface
 	GsEnvProcessor
 		fix abstractions (only with functions)
-		
+	Command
+		deploy command (bundles, doctrine, dotenv:dump`composer dump-env prod`)
+		избавиться от ENV переменных

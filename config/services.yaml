@@ -1,3 +1,7 @@
+imports:
+    -   resource: 'default/services.yaml'
+        ignore_errors: false
+
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -5,7 +9,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
-    app.app: "@@" #@
+    #app.app: "@@" #@
     #app.sign: '='
     #app.app: '%env(key_val:explode:app.sign:default::key:query:url:APP_APP)%'
 
@@ -65,7 +69,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-            - '../src/Service/StringService.php'
     
     # like _instanceof only by path
     app.messenger.command_message_handlers:
@@ -114,6 +117,7 @@ services:
     ###< VALUE RESOLVER ###
     
     ###> SERVICES ###
+    
     app.ru_12_carbon:
         parent: gs_service.carbon_factory_immutable
         arguments:
@@ -138,25 +142,19 @@ services:
         abstract: true
         class: App\Messenger\Middleware\AddHandlerArgumentFrom
         
-    app.string1:
-        class: App\Service\StringService
-        arguments:
-            $v: 1
-            #$v: !abstract 'когда-то в compiller pass его планируется провести'
-        
-    app.string2:
-        class: App\Service\StringService
-        arguments:
-            $v: 2
-            #$v: !abstract 'когда-то в compiller pass его планируется провести'
-        
-    # ALIAS
-    App\Service\StringService: '@app.string1'
-    
     #app.interface_adapter:
     #    class: App\Contract\SomeInterface
-    #    from_callable: [!service {class: 'App\Service\StringService'}, 'getPath']
+    #    from_callable: ['@App\Service\StringService', 'getPath']
 
+    ###> ALIASES ###
+    App\Service\StringService: '@app.string1'
+    App\Service\StringService $sec: '@app.string2'
+    ###< ALIASES ###
+
+    App\Service\SomeService:
+        class: App\Service\SomeService
+        public: true
+    
     ###< SERVICES ###
     
     

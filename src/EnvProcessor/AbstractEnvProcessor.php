@@ -6,7 +6,6 @@ use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 
 abstract class AbstractEnvProcessor implements EnvVarProcessorInterface 
 {
-	
 	public function getEnv(
 		string $prefix,
 		string $name,

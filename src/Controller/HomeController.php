@@ -124,6 +124,7 @@ use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\DependencyInjection\Container;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireCallable;
+use Symfony\Component\Dotenv\Dotenv;
 
 class HomeController extends AbstractController
 {
@@ -140,7 +141,7 @@ class HomeController extends AbstractController
         $faker,
         $adminSendEmailMessage,
         $adminEmail,
-        Product $product,
+        //Product $product,
         MessageBusInterface $messengerBusHandlerHasRouterContext,
         MessageBusInterface $bus,
         $get,
@@ -150,12 +151,13 @@ class HomeController extends AbstractController
 		#[Autowire(service: 'service_container')]
 		$container,
 		StringService $stringService,
-		#[AutowireCallable(service: StringService::class, method: 'getPath')]
-		\App\Contract\SomeInterface $i,
+		StringService $sec,
+		#[Autowire(param: 'env(GS_COMMAND_PATH_TO_PDF_CONVERTER)')]
+		$test,
     ): Response {
 		
 		\dump(
-			$i->getPath('', ''),
+			$test,
 		);
 		
         return $this->render('home/home.html.twig');

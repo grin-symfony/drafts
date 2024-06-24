@@ -13,7 +13,7 @@
         "dragonmantank/cron-expression": "^3.3",
         "fzaninotto/faker": "dev-bugfix",
         "grin-symfony/command-bundle": ">=1.0",
-        "grin-symfony/env-processor-bundle": ">=1.0",
+        "grin-symfony/env-processor-bundle": "^1.0",
         "grin-symfony/service-bundle": ">=2.0",
         "grin-symfony/web-app-bundle": "^1.0",
         "nesbot/carbon": "^3.5",
@@ -22,6 +22,7 @@
         "phpstan/phpdoc-parser": "^1.29",
         "symfony-bundles/redis-bundle": "^3.1",
         "symfony/console": "7.1.*",
+        "symfony/debug-bundle": "7.1.*",
         "symfony/doctrine-messenger": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/expression-language": "7.1.*",
@@ -71,7 +72,6 @@
 	],
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",
-        "symfony/debug-bundle": "7.1.*",
         "symfony/maker-bundle": "^1.60",
         "symfony/stopwatch": "7.1.*",
         "symfony/web-profiler-bundle": "7.1.*"
@@ -106,6 +106,9 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
+        "composer-dump-env": [
+            "@composer dump-env"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
