@@ -171,8 +171,14 @@ class HomeController extends AbstractController
 		\App\Email\Style\NewUserEmail $newUserEmail,
     ): Response {
 		
+		$e = new ExpressionLanguage;
+		
+		$r = $e->compile($originExpr = '(1 + 23) * 33');
+		
 		\dd(
-			$defaultEmail(),
+			$r,
+			$e->evaluate($r),
+			$e->evaluate($originExpr),
 		);
 		
         return $this->render('home/home.html.twig');
