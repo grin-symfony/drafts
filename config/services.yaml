@@ -7,9 +7,13 @@ imports:
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+when@dev:
+    parameters:
+        #app.app: "_1"
+
 parameters:
 
-    #app.app: "@@" #@
+    app.app: "_0" #@
     #app.sign: '='
     #app.app: '%env(key_val:explode:app.sign:default::key:query:url:APP_APP)%'
 

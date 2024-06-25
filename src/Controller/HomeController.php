@@ -152,7 +152,7 @@ class HomeController extends AbstractController
 		$container,
 		StringService $stringService,
 		StringService $sec,
-		#[Autowire(param: 'env(GS_COMMAND_PATH_TO_PDF_CONVERTER)')]
+		#[Autowire(param: 'app.app')]
 		$test,
     ): Response {
 		
