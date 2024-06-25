@@ -44,8 +44,6 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	https://symfony.com/doc/current/service_container/debug.html
-	https://symfony.com/doc/current/service_container/expression_language.html
 	https://symfony.com/doc/current/service_container/factories.html
 	https://symfony.com/doc/current/service_container/import.html
 	https://symfony.com/doc/current/service_container/injection_types.html
@@ -168,8 +166,14 @@ TODO
 		-	CommandBusHandlerInterface
 			EventBusHandlerInterface
 			QueryBusHandlerInterface
+		$errorFormat('message %s', 'param') $newUserFormat('message %s', 'param')
+			GS\WebApp\Contract\MessageFormat\*
+			GS\WebApp\Type\MessageFormat\*
+			GS\WebApp\MessageFormat\*
+			GS\WebApp\Configurator\MessageFormatConfigurator.php'
 	GsEnvProcessor
 		fix abstractions (only with functions)
 	Command
 		deploy command (bundles, doctrine, dotenv:dump`composer dump-env prod`)
 		избавиться от ENV переменных
+	

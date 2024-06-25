@@ -179,9 +179,23 @@ services:
         
     ###< ALIASES ###
     
-    App\Email\DefaultEmail:
-        class: App\Email\DefaultEmail
+    #App\Email\AbstractEmail:
+    #    abstract: true
+    #    class: App\Email\AbstractEmail
+    #    configurator: '@App\Configurator\EmailConfigurator'
+    
+    app.email_namespace:
+        namespace: App\Email\Style\
+        resource: '../src/Email/Style/'
         configurator: '@App\Configurator\EmailConfigurator'
+    
+    #App\Email\DefaultEmail:
+    #    class: App\Email\DefaultEmail
+    #    parent: App\Email\AbstractEmail
+    
+    #App\Email\CongratulationEmail:
+    #    class: App\Email\CongratulationEmail
+    #    parent: App\Email\AbstractEmail
     
     ###< SERVICES ###
     

@@ -165,14 +165,15 @@ class HomeController extends AbstractController
 		SomeService $test,
 		SomeService $v,
 		\App\Dto\User\UserDto $userDto,
-		\App\Email\DefaultEmail $defaultEmail,
+		\App\Email\Style\DefaultEmail $defaultEmail,
+		\App\Email\Style\CongratulationEmail $configurationEmail,
+		\App\Email\Style\ErrorEmail $errorEmail,
+		\App\Email\Style\NewUserEmail $newUserEmail,
     ): Response {
 		
-		$ita = \iterator_to_array(...);
-		\dump(
-			$defaultEmail,
+		\dd(
+			$defaultEmail(),
 		);
-		
 		
         return $this->render('home/home.html.twig');
 		
