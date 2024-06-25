@@ -44,10 +44,7 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	
-	https://symfony.com/doc/current/service_container/autowiring.html
-	https://symfony.com/doc/current/service_container/calls.html
-	https://symfony.com/doc/current/service_container/compiler_passes.html
+	https://symfony.com/doc/current/components/dependency_injection/compilation.html
 	https://symfony.com/doc/current/configuration/front_controllers_and_kernel.html
 	https://symfony.com/doc/current/service_container/configurators.html
 	https://symfony.com/doc/current/service_container/debug.html
@@ -70,11 +67,10 @@ SYMFONY SERVICE CONTAINER
 	?
 	удалить env переменную в бандле, чтоб не торчал
 	что фактически делает запись service_id: ~
-	!service {class: 'CLASS_NAME'} === '@CLASS_NAME'
 	как работает опция services: #prototype#: (from_callable:)
 	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
 	add yaml custom tag 
-		!tagged_iterator !closure !abstract
+		!tagged_iterator !closure !returns_clone !service !abstract
 		!!str !!float !!binary
 		!php/const !php/env !php/object
 	удалить сервис в зависимости от APP_ENV

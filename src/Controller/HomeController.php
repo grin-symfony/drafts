@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use function Symfony\component\string\u;
 
+use Symfony\Component\DependencyInjection\Attribute\AutowireServiceClosure;
+use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
@@ -125,6 +127,10 @@ use Symfony\Component\DependencyInjection\Container;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireCallable;
 use Symfony\Component\Dotenv\Dotenv;
+use App\Service\Anonymous\SomeAnonymousService;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Target;
 
 class HomeController extends AbstractController
 {
@@ -150,15 +156,21 @@ class HomeController extends AbstractController
 		$carbon,
 		#[Autowire(service: 'service_container')]
 		$container,
-		StringService $stringService,
-		StringService $sec,
-		#[Autowire(param: 'app.app')]
-		$test,
+		//StringService $stringService,
+		//#[Autowire(expression: 'service("SERVICE_ID not ALIAS").getPath(".", "/s/f/g")')]
+		//#[AutowireServiceClosure(SomeService::class)]
+		//#[AutowireCallable(service: SomeService::class, method: 'getGenerator', lazy: true)]
+		//#[AutowireMethodOf(SomeService::class, lazy: true)]
+		//$getGenerator = null,
+		SomeService $test,
+		SomeService $v,
     ): Response {
 		
+		$ita = \iterator_to_array(...);
 		\dump(
 			$test,
 		);
+		
 		
         return $this->render('home/home.html.twig');
 		

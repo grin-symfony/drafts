@@ -10,8 +10,10 @@ use GS\Service\Service\ArrayService;
 use GS\Service\Service\CarbonService;
 use GS\Service\Service\BoolService;
 use GS\Service\Service\RegexService;
+use Symfony\Component\DependencyInjection\Attribute\AsAlias;
 
 //#[When(env: 'dev')]
+//#[AsAlias(StringService::class)]
 class StringService extends GSStringService
 {
 	public function __construct(

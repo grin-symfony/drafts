@@ -1,6 +1,6 @@
 imports:
-    -   resource: 'default/services.yaml'
-        ignore_errors: false
+    #-   resource: 'default/services.yaml'
+    #    ignore_errors: false
 
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
@@ -71,6 +71,7 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
+            - '../src/Service/Anonymous'
             - '../src/Entity/'
             - '../src/Kernel.php'
     
@@ -151,13 +152,19 @@ services:
     #    from_callable: ['@App\Service\StringService', 'getPath']
 
     ###> ALIASES ###
-    App\Service\StringService: '@app.string1'
-    App\Service\StringService $sec: '@app.string2'
-    ###< ALIASES ###
+    
+    # NEW DEFINITION
+    #app.stringservice:
+    #    class: App\Service\StringService
 
+    # SERVICE_ID becomes ALIAS (NEW DEFINITION)
+    #App\Service\StringService: '@app.stringservice'
+    #app_stringservice: '@App\Service\StringService'
+    
+    #App\Service\StringService $secondSecond: '@app.string2'
     App\Service\SomeService:
         class: App\Service\SomeService
-        public: true
+    ###< ALIASES ###
     
     ###< SERVICES ###
     
