@@ -54,10 +54,9 @@ do
 	git clone "https://github.com/${B_FULL_NAME}.git" "${B_NAME}"
 	
 	cd "./${B_NAME}"
-	git checkout 
 	git checkout "${REP_REMOTE_NAME}/${B_VERSION}" -f
-	git checkout -b "${B_VERSION}"
-	git checkout "${B_VERSION}" -f
+	git branch -D "${B_VERSION}"
+	git checkout -b "${B_VERSION}" -f
 	cd ".."
 done
 ###< CYCLE ###
