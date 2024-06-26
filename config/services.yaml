@@ -90,6 +90,18 @@ services:
         -   name: 'messenger.message_handler'
             bus: 'event.bus'
             
+    app.dto:
+        namespace: 'App\Dto\'
+        resource: '../src/Dto/'
+        tags:
+        -   name: 'app.dto'
+            
+    app.dto.null_user_dto:
+        class: App\Dto\User\NullUserDto
+        tags:
+        -   name: 'app.dto'
+    App\Dto\User\NullUserDto: '@app.dto.null_user_dto'
+            
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
@@ -164,7 +176,12 @@ services:
     #App\Service\StringService $secondSecond: '@app.string2'
     App\Service\SomeService:
         class: App\Service\SomeService
+        
     ###< ALIASES ###
+    
+    App\Email\DefaultEmail:
+        class: App\Email\DefaultEmail
+        configurator: '@App\Configurator\EmailConfigurator'
     
     ###< SERVICES ###
     

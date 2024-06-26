@@ -164,11 +164,13 @@ class HomeController extends AbstractController
 		//$getGenerator = null,
 		SomeService $test,
 		SomeService $v,
+		\App\Dto\User\UserDto $userDto,
+		\App\Email\DefaultEmail $defaultEmail,
     ): Response {
 		
 		$ita = \iterator_to_array(...);
 		\dump(
-			$test,
+			$defaultEmail,
 		);
 		
 		

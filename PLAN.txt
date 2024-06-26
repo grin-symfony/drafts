@@ -44,11 +44,7 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	https://symfony.com/doc/current/components/dependency_injection/compilation.html
-	https://symfony.com/doc/current/configuration/front_controllers_and_kernel.html
-	https://symfony.com/doc/current/service_container/configurators.html
 	https://symfony.com/doc/current/service_container/debug.html
-	https://symfony.com/doc/current/service_container/definitions.html
 	https://symfony.com/doc/current/service_container/expression_language.html
 	https://symfony.com/doc/current/service_container/factories.html
 	https://symfony.com/doc/current/service_container/import.html
@@ -65,6 +61,8 @@ SYMFONY SERVICE CONTAINER
 	https://symfony.com/doc/current/service_container/tags.html
 	https://symfony.com/doc/current/contributing/code/standards.html
 	?
+	реализовать проход компилятора для тега (app.set_callable_result, method, args) чтоб был найден метод (SetCallableResultInterface) класса для снабжения данными тегированного
+	разница в проходах компилятора PassConfig::TYPE_BEFORE_OPTIMIZATION PassConfig::TYPE_AFTER_REMOVING
 	удалить env переменную в бандле, чтоб не торчал
 	что фактически делает запись service_id: ~
 	как работает опция services: #prototype#: (from_callable:)
@@ -77,16 +75,17 @@ SYMFONY SERVICE CONTAINER
 	провести абстрактный аргумент в compiller pass
 ***
 SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
+SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html
 SYMFONY EXPRESSION LANGUAGE
 SYMFONY EVENTS
 	?
 	поймать WorkerMessageRetriedEvent
 TWIG
 SYMFONY TWIG COMPONENTS
-SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html#configuration-parameters
 SYMFONY STRING
 SYMFONY Clock Component
 SYMFONY FORMS
+SYMFONY CONFIG COMPONENT https://symfony.com/doc/current/components/config.html
 SYMFONY OPTIONS RESOLVER
 SYMFONY UPLOAD FILES
 SYMFONY VALIDATOR

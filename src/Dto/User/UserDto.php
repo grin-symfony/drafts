@@ -8,7 +8,7 @@ class UserDto
 {
     public function __construct(
         /**
-         * @param $firstName
+         * @param $firstName = (['Alex', 'Lilia'])[\rand(0, 1)];
          */
         #[Constraints\NotBlank(groups: ['strings'], allowNull: true)]
         public ?string $firstName = null,
@@ -17,7 +17,15 @@ class UserDto
         #[Constraints\Positive(groups: ['ints'])]
         #[Constraints\MoreThanOrEqual(1, groups: ['ints'])]
         #[Constraints\LessThanOrEqual(200, groups: ['ints'])]
+		/**
+		* @param $age = \rand(10, 120);
+		*/
         public ?int $age = null,
     ) {
     }
+	
+	public function setAge(?int $age): static {
+		$this->age = $age;
+		return $this;
+	}
 }
