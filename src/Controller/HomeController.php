@@ -28,7 +28,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use App\Service\SomeService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use App\Service\ExpressionLanguage;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\HeaderUtils;
@@ -131,6 +131,8 @@ use App\Service\Anonymous\SomeAnonymousService;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Target;
+use Symfony\Component\ExpressionLanguage\Parser;
+use Symfony\Component\ExpressionLanguage\SerializedParsedExpression;
 
 class HomeController extends AbstractController
 {
@@ -152,8 +154,8 @@ class HomeController extends AbstractController
         MessageBusInterface $bus,
         $get,
 		PropertyInfoExtractorInterface $pi,
-		#[Autowire(service: 'app.en_utc_carbon')]
-		$carbon,
+		#[Autowire('%app.app%')]
+		$appApp,
 		#[Autowire(service: 'service_container')]
 		$container,
 		//StringService $stringService,
@@ -172,13 +174,12 @@ class HomeController extends AbstractController
     ): Response {
 		
 		$e = new ExpressionLanguage;
-		
-		$r = $e->compile($originExpr = '(1 + 23) * 33');
+		$args = [
+			'request' => $r,
+		];
 		
 		\dd(
-			$r,
-			$e->evaluate($r),
-			$e->evaluate($originExpr),
+			\class_implements($test),
 		);
 		
         return $this->render('home/home.html.twig');

@@ -2,14 +2,26 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use App\Contract\Some\SomeServiceInterface;
 use Symfony\Component\DependencyInjection\Attribute\AsAlias;
-use Symfony\Contracts\Service\Attribute\Required;
+use Symfony\Component\DependencyInjection\Attribute\Lazy;
+use Doctrine\ORM\EntityManagerInterface;
 
 //#[AsAlias]
+#[Lazy]
 class SomeService implements SomeServiceInterface
 {
+	use \App\Trait\RequireEntityManager;
+	
+	private ?EntityManagerInterface $em = null;
+	
+	function &getEntityManagerRef(): ?EntityManagerInterface {
+		return $this->em;
+	}
+	
+	// uncomment to deny #[Required]
+	//public function requireEntityManager() {}
+	
     public function __construct(
 		public $v = null,
 		public $a = null,
@@ -17,7 +29,11 @@ class SomeService implements SomeServiceInterface
 		\dump(__METHOD__);
 	}
 	
-	#[Required]
+    public static function create(): static {
+		\dump(__METHOD__);
+		return new static;
+	}
+	
     public function setRequired(
 		$v = 11,
 	): static {

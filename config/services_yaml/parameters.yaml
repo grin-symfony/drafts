@@ -1,0 +1,27 @@
+parameters:
+
+    app.app: "_0" #@
+    #app.sign: '='
+    #app.app: '%env(key_val:explode:app.sign:default::key:query:url:APP_APP)%'
+
+    ###> REGEXP ###
+    app.regexp.digit:   '[0-9]'
+    ###< REGEXP ###
+    
+    ###> SESSION ###
+    app.session.max_idle_sec:   '10'
+    ###< SESSION ###
+    
+    ###> Fixture ###
+    app.fixture.users:      15
+    app.fixture.product.toy:   5
+    app.fixture.product.food:   5
+    app.fixture.product.furniture:   5
+    ###< Fixture ###
+
+    ###> GS\Service ###
+    ###< GS\Service ###
+
+    ###> GS\WebApp ###
+    ###< GS\WebApp ###
+    

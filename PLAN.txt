@@ -44,9 +44,6 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	https://symfony.com/doc/current/service_container/factories.html
-	https://symfony.com/doc/current/service_container/import.html
-	https://symfony.com/doc/current/service_container/injection_types.html
 	https://symfony.com/doc/current/service_container/lazy_services.html
 	https://symfony.com/doc/current/service_container/optional_dependencies.html
 	https://symfony.com/doc/current/service_container/parent_services.html
@@ -71,9 +68,14 @@ SYMFONY SERVICE CONTAINER
 		!php/const !php/env !php/object
 	удалить сервис в зависимости от APP_ENV
 	провести абстрактный аргумент в compiller pass
+	Expressions can be used in arguments, properties, as arguments with configurator, as arguments to calls (method calls) and in factories
+	services.yaml можно ли в factory: сослаться на сервис который создаёшь?
+	как правильно импортировать файлы конфигурации services.yaml (есть проблемы)
 ***
 SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
 SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html
+	?
+	извлечь используя extractor docBlock @return
 SYMFONY EXPRESSION LANGUAGE
 SYMFONY EVENTS
 	?
@@ -96,10 +98,12 @@ SYMFONY SECURITY
 	Какая разница между User and SecurityToken (UserValueResolver, SecurityTokenValueResolver)
 	security-http/Attribute/CurrentUser.php
 	https://symfony.com/doc/current/doctrine/registration_form.html
+	https://symfony.com/doc/current/reference/formats/expression_language.html#built-in-objects-and-variables
 HOTWIRE: STIMULUS/TURBO/STRADA
 SYMFONY CACHE
 	?
 	$request->getETags()
+	создать cache адаптер для ExpressionLanguage($adapter)
 SYMFONY SERIALIZER
 	?
 	добавляет новые поля в json при serialize
@@ -159,6 +163,7 @@ PRODUCTION
 	Утилиты для управления ENV_VAR https://docs.platform.sh/guides/symfony/environment-variables.html?utm_source=symfony-cloud-sign-up&utm_medium=backlink&utm_campaign=Symfony-Cloud-sign-up&utm_content=docs
 	custom env loader (configuraiton)
 	
+	
 TODO
 	WebApp
 		$get
@@ -171,6 +176,7 @@ TODO
 			GS\WebApp\Type\MessageFormat\*
 			GS\WebApp\MessageFormat\*
 			GS\WebApp\Configurator\MessageFormatConfigurator.php'
+		add useful functoins into ExpressionLanguage
 	GsEnvProcessor
 		fix abstractions (only with functions)
 	Command

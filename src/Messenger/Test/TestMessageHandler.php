@@ -3,9 +3,9 @@
 namespace App\Messenger\Test;
 
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use App\Contract\Messenger\EventBusHandlerInterface;
 
-#[AsMessageHandler]
-class TestMessageHandler
+class TestMessageHandler implements EventBusHandlerInterface
 {
     public function __invoke(TestMessage $message): void
     {
