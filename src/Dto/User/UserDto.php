@@ -3,8 +3,9 @@
 namespace App\Dto\User;
 
 use Symfony\Component\Validator\Constraints;
+use App\Contract\Dto\DtoInterface;
 
-class UserDto
+class UserDto implements DtoInterface
 {
     public function __construct(
         /**

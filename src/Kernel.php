@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use App\DependencyInjection\Compiler\CustomPass;
@@ -10,6 +11,7 @@ use App\CompillerPass\AppDtoTagPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use App\Extension\Test\ExtensionExample;
+use Symfony\Component\DependencyInjection\Reference;
 
 class Kernel extends BaseKernel implements CompilerPassInterface
 {
@@ -32,12 +34,15 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 		$serviceId = 'App\Service\SomeService';
 		
 		$d = $container->findDefinition($serviceId);
+		/*
 		$d
-			//->setProperty('age', null)
+			->setArgument('$service', new Reference('App\Service\SomeService2'))
 		;
+		*/
 		
 		/*
 		\dd(
+			ServiceLocatorTagPass::register($container, ['logger' => new Reference('Psr\Log\LoggerInterface $messengerEmailLogger')])
 			$d,
 			$d->getMethodCalls($serviceId),
 			$container->hasDefinition($serviceId),

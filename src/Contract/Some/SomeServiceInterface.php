@@ -2,4 +2,8 @@
 
 namespace App\Contract\Some;
 
-interface SomeServiceInterface {}
+interface SomeServiceInterface {
+	
+	public function getGenerator(...$args): \Generator;
+	
+}

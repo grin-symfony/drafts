@@ -28,6 +28,7 @@ class NotifierHandlers implements CommandBusHandlerInterface
         private readonly MessageBusInterface $bus,
         private readonly MessageBusInterface $eventBus,
     ) {
+		\dump(__CLASS__);
     }
 
     public function __invoke(
@@ -64,4 +65,10 @@ class NotifierHandlers implements CommandBusHandlerInterface
         //$value = $this->osService('make', true, 11);
         //\dump('Sending email to "' . $message->getTo() . '"' . \PHP_EOL . $message);
     }
+	
+	/*
+	public static function getKeyName(): string {
+		return __CLASS__;
+	}
+	*/
 }

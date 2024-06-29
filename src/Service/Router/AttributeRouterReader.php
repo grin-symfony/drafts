@@ -20,6 +20,8 @@ class AttributeRouterReader extends Loader
         protected ?string $env = null,
     ) {
         parent::__construct(env: $env);
+		
+		\dump(__METHOD__);
     }
 
     /**

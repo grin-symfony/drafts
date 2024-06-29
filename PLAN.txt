@@ -44,15 +44,6 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	https://symfony.com/doc/current/service_container/lazy_services.html
-	https://symfony.com/doc/current/service_container/optional_dependencies.html
-	https://symfony.com/doc/current/service_container/parent_services.html
-	https://symfony.com/doc/current/service_container/request.html
-	https://symfony.com/doc/current/service_container/service_closures.html
-	https://symfony.com/doc/current/service_container/service_decoration.html
-	https://symfony.com/doc/current/service_container/service_subscribers_locators.html
-	https://symfony.com/doc/current/service_container/shared.html
-	https://symfony.com/doc/current/service_container/synthetic_services.html
 	https://symfony.com/doc/current/service_container/tags.html
 	https://symfony.com/doc/current/contributing/code/standards.html
 	?
@@ -63,7 +54,7 @@ SYMFONY SERVICE CONTAINER
 	как работает опция services: #prototype#: (from_callable:)
 	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
 	add yaml custom tag 
-		!tagged_iterator !closure !returns_clone !service !abstract
+		!tagged_locator !tagged_iterator !service_closure !closure !service_locator !service !returns_clone !abstract
 		!!str !!float !!binary
 		!php/const !php/env !php/object
 	удалить сервис в зависимости от APP_ENV
@@ -71,6 +62,14 @@ SYMFONY SERVICE CONTAINER
 	Expressions can be used in arguments, properties, as arguments with configurator, as arguments to calls (method calls) and in factories
 	services.yaml можно ли в factory: сослаться на сервис который создаёшь?
 	как правильно импортировать файлы конфигурации services.yaml (есть проблемы)
+	Что делает: AutowireDecorated
+	как _defaults: bind в бандле?
+	!!! Как добавить тег к Psr\Log\LoggerInterface
+	КАК ПОЛЬЗОВАТЬСЯ !tagged_locator:
+		по неизвестной причине некоторые сервисы не могут попасть в коллекцию по тегу
+		но #[AutowireLocator] лениво подтягивает сервисы успешно
+		Psr\Log\LoggerInterface тегирую, а получить в коллекцию !tagged_locator не могу, а через !service_locator могу
+	services.yaml namespace-path не назначает теги как следует, нужно использовать _instanceof
 ***
 SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
 SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html
@@ -81,6 +80,8 @@ SYMFONY EVENTS
 	?
 	поймать WorkerMessageRetriedEvent
 TWIG
+	?
+	Запросить в extension сервис, который ещё не успел попасть в контейнер
 SYMFONY TWIG COMPONENTS
 SYMFONY STRING
 SYMFONY Clock Component
@@ -130,6 +131,8 @@ SYMFONY BUNDLES
 SYMFONY MAILER
 SYMFONY WORKFLOW
 SYMFONY PROFILER
+	?
+	Почему сервис @Psr\Container\ContainerInterface не доступен из services.yaml
 SYMFONY REDIS BUNDLE
 SYMFONY TESTS
 	?
@@ -138,6 +141,7 @@ SYMFONY TESTS
 	https://symfony.com/doc/current/components/clock.html
 	https://symfony.com/doc/current/testing/database.html
 	https://symfony.com/doc/current/messenger.html#in-memory-transport
+	https://symfony.com/doc/current/service_container/service_subscribers_locators.html#testing-a-service-subscriber
 SYMFONY MY ADMIN
 SYMFONY LIVE COMPONENTS
 SYMFONY WebLink
@@ -146,6 +150,9 @@ Framework Configuration Reference https://symfony.com/doc/current/reference/conf
 SYMFONY BUNDLE FOSJsRoutingBundle (route -> uri in js)
 SYMFONY BUNDLE FOSHttpCacheBundle (invalidate cache)
 SYMFONY Dotenv class
+SYMFONY COMMAND class
+	?
+	Autowire RequestStack -> RequestStack::getCurrentRequest() === null
 SYMFONY COMPONENTS: https://symfony.com/components
 https://symfony.com/doc/current/reference/index.html
 AMQP
@@ -177,9 +184,13 @@ TODO
 			GS\WebApp\MessageFormat\*
 			GS\WebApp\Configurator\MessageFormatConfigurator.php'
 		add useful functoins into ExpressionLanguage
+		AbstractHandler must:
+			tag 'container.service_subscriber'
+			.\src\Messenger\AbstractHandler.php
 	GsEnvProcessor
 		fix abstractions (only with functions)
 	Command
 		deploy command (bundles, doctrine, dotenv:dump`composer dump-env prod`)
 		избавиться от ENV переменных
-	
+	Services
+		для serviceLocator ServiceMethodsSubscriberTrait отложенная автопроводка .\src\Trait\ServiceLocator\Aware

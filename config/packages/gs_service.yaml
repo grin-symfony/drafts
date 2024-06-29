@@ -1,5 +1,6 @@
-#gs_service:
-
+gs_service:
+    locale: '%env(APP_LOCALE)%'
+    timezone: '%env(APP_TIMEZONE)%'
 #    load_packs_configs:
 #    -   pack_name:      'gs_service'
 #        pack_rel_path:  'config/packages'

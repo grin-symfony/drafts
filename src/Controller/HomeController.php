@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use function Symfony\component\string\u;
 
+use App\Contract\Some\SomeServiceInterface;
+use App\Service\SomeService2;
 use Symfony\Component\DependencyInjection\Attribute\AutowireServiceClosure;
 use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -164,23 +166,33 @@ class HomeController extends AbstractController
 		//#[AutowireCallable(service: SomeService::class, method: 'getGenerator', lazy: true)]
 		//#[AutowireMethodOf(SomeService::class, lazy: true)]
 		//$getGenerator = null,
-		SomeService $test,
-		SomeService $v,
 		\App\Dto\User\UserDto $userDto,
 		\App\Email\Style\DefaultEmail $defaultEmail,
 		\App\Email\Style\CongratulationEmail $configurationEmail,
 		\App\Email\Style\ErrorEmail $errorEmail,
 		\App\Email\Style\NewUserEmail $newUserEmail,
+		//SomeService $test,
+		//SomeService2 $test2,
+		$promocodes,
+		#[Autowire('@decorated_attribute_router_reader')]
+		\App\Service\Router\AttributeRouterReader $attributeRouterReader,
+		//#[Autowire('@FQCN $var')]
+		//$value,
     ): Response {
 		
-		$e = new ExpressionLanguage;
-		$args = [
-			'request' => $r,
-		];
+		//$promocode = $bus->dispatch(new GetPromocodeWithTheBestPrice($promocodes));
 		
-		\dd(
-			\class_implements($test),
+		\dump(
+			get_debug_type($attributeRouterReader),
 		);
+		
+		/*
+		$bus->dispatch(new \App\Messenger\Command\Message\SendEmail(
+			'example@ex.ru',
+			'SOME TEXT TO THIS EMAIL',
+		));
+		*/
+		
 		
         return $this->render('home/home.html.twig');
 		
