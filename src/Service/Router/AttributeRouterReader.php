@@ -21,7 +21,6 @@ class AttributeRouterReader extends Loader
     ) {
         parent::__construct(env: $env);
 		
-		\dump(__METHOD__);
     }
 
     /**

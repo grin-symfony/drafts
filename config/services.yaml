@@ -39,6 +39,14 @@ services:
                 tag: 'app.promocode'
             ###< PROMOCODE ###
             
+            
+            ###> HASH ###
+            $callableHashLocator: !tagged_locator
+                tag: !php/const 'App\Type\Hash\HashType::TAG'
+                index_by: index
+                default_index_method: getIndex
+            ###< HASH ###
+            
     _instanceof:
         
         ###> MESSENGER ###
@@ -70,15 +78,16 @@ services:
             -   name: app.dto
             -   name: 'app.messenger'
         ###< DTO ###
+
         
     App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Service/Anonymous'
+            - '../src/Attribute/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-            
             
     ###> SERVICE LOCATOR ###
     
@@ -89,17 +98,49 @@ services:
             # KEY: SERVICE_ID
             logger: '@Psr\Log\LoggerInterface $messengerEmailLogger'
     
+    
+    ###> MESSENGER ###
+
+    App\Messenger\MessengerManager:
+        class: App\Messenger\MessengerManager
+        arguments:
+            $commandBusHandlers: !tagged_locator
+                tag: app.command_bus_handler
+            $eventBusHandlers: !tagged_locator
+                tag: app.event_bus_handler
+
+    ###< MESSENGER ###
+
+
     ###< SERVICE LOCATOR ###
+    
+    
+    ###> SOME SERVICE ###
+    
+    App\Service\SomeService:
+        class: App\Service\SomeService
+        arguments:
+            $locator: !tagged_locator
+                tag: app.event_bus_handler
+                index_by: locatorIndex
+                default_index_method: getLocatorIndex
+    
+    ###< SOME SERVICE ###
     
     
     ###> LOGGER ###
     
+    app.false:
+        synthetic: true
     
     ###< LOGGER ###
     
     #App\Dto\User\NullUserDto:
+    #    class: App\Dto\User\NullUserDto
     #    tags:
-    #    -   name: 'app.handler_service'
+    #    -   app.handler_service:
+    #            name: one
+    #            priority: 2
             
     #app.dto.null_user_dto:
     #    class: App\Dto\User\NullUserDto
@@ -174,11 +215,6 @@ services:
             $one: '@logger'
             1: '@?loggerssss'
     
-    App\Service\SomeService:
-        class: App\Service\SomeService
-        arguments:
-            #$service: !tagged_locator 'app.command_bus_handler'
-    
     app.notifier_handlers:
         class: App\Messenger\Notifier\NotifierHandlers
     App\Messenger\Notifier\NotifierHandlers: '@app.notifier_handlers'
@@ -191,17 +227,7 @@ services:
             $logger: !service_closure '@monolog.logger.php'
             #$logger: !closure '@App\Service\CallableService'
     App\Service\SomeService2: '@app.some_service2'
-        
-    # creation SERVICE_ID
-    App\Service\SomeService $value:
-        class: App\Service\SomeService
-        arguments:
-        -   ~
-        tags:
-        -   app.service
-    # creation ALIAS
-    FQCN $var: '@App\Service\SomeService $value'
-        
+                
     ###< ABSTRACT OVERRIDING arguments ###
 
     #App\Messenger\AbstractHandler:

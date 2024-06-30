@@ -19,7 +19,6 @@ class AttributeRouterReader extends \App\Service\Router\AttributeRouterReader
 		//
 		protected $inner,
     ) {
-		\dump($inner);
         parent::__construct(
 			kernelProjectDir: $kernelProjectDir,
 			env: $env,

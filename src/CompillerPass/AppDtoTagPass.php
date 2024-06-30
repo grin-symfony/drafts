@@ -2,6 +2,7 @@
 
 namespace App\CompillerPass;
 
+use Symfony\Component\DependencyInjection\Reference;
 use function Symfony\component\string\u;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

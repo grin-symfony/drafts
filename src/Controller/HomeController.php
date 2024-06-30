@@ -177,15 +177,17 @@ class HomeController extends AbstractController
 		#[Autowire('@decorated_attribute_router_reader')]
 		\App\Service\Router\AttributeRouterReader $attributeRouterReader,
 		//#[Autowire('@FQCN $var')]
-		//$value,
+		$callableHashLocator,
     ): Response {
 		
 		//$promocode = $bus->dispatch(new GetPromocodeWithTheBestPrice($promocodes));
 		
-		\dump(
-			get_debug_type($attributeRouterReader),
-		);
+		// synthetic
+		//$container->set('app.false', $this);
 		
+		\dump(
+			\iterator_to_array($callableHashLocator),
+		);
 		/*
 		$bus->dispatch(new \App\Messenger\Command\Message\SendEmail(
 			'example@ex.ru',

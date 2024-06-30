@@ -18,7 +18,9 @@ use Symfony\Component\Messenger\Handler\BatchHandlerTrait;
 use App\Contract\Messenger\CommandBusHandlerInterface;
 use App\Messenger\Test\Event\UserWasCreated;
 use Symfony\Component\Messenger\Message\RedispatchMessage;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 
+#[AsTaggedItem('notifier')]
 class NotifierHandlers implements CommandBusHandlerInterface
 {
     public function __construct(
@@ -28,7 +30,6 @@ class NotifierHandlers implements CommandBusHandlerInterface
         private readonly MessageBusInterface $bus,
         private readonly MessageBusInterface $eventBus,
     ) {
-		\dump(__CLASS__);
     }
 
     public function __invoke(

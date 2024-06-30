@@ -44,8 +44,6 @@ SYMFONY PROPERTY INFO COMPONENT
 SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
-	https://symfony.com/doc/current/service_container/tags.html
-	https://symfony.com/doc/current/contributing/code/standards.html
 	?
 	реализовать проход компилятора для тега (app.set_callable_result, method, args) чтоб был найден метод (SetCallableResultInterface) класса для снабжения данными тегированного
 	разница в проходах компилятора PassConfig::TYPE_BEFORE_OPTIMIZATION PassConfig::TYPE_AFTER_REMOVING
@@ -53,25 +51,27 @@ SYMFONY SERVICE CONTAINER
 	что фактически делает запись service_id: ~
 	как работает опция services: #prototype#: (from_callable:)
 	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
-	add yaml custom tag 
-		!tagged_locator !tagged_iterator !service_closure !closure !service_locator !service !returns_clone !abstract
-		!!str !!float !!binary
+	add yaml custom tag
+		!service_locator !tagged_locator !tagged_iterator !service_closure !closure !service !returns_clone !abstract
 		!php/const !php/env !php/object
+		!!str !!float !!binary
 	удалить сервис в зависимости от APP_ENV
 	провести абстрактный аргумент в compiller pass
 	Expressions can be used in arguments, properties, as arguments with configurator, as arguments to calls (method calls) and in factories
 	services.yaml можно ли в factory: сослаться на сервис который создаёшь?
 	как правильно импортировать файлы конфигурации services.yaml (есть проблемы)
 	Что делает: AutowireDecorated
-	как _defaults: bind в бандле?
+	как _defaults: bind в бандле? (Definition::setBindings ?)
 	!!! Как добавить тег к Psr\Log\LoggerInterface
-	КАК ПОЛЬЗОВАТЬСЯ !tagged_locator:
-		по неизвестной причине некоторые сервисы не могут попасть в коллекцию по тегу
+	по неизвестной причине некоторые сервисы не могут попасть в коллекцию по тегу
 		но #[AutowireLocator] лениво подтягивает сервисы успешно
 		Psr\Log\LoggerInterface тегирую, а получить в коллекцию !tagged_locator не могу, а через !service_locator могу
 	services.yaml namespace-path не назначает теги как следует, нужно использовать _instanceof
-***
+	как по Definition получить DEFINITION_SERVICE_ID из container
+	Как изменить Definition так, чтобы возвращался Closure определённого метода
+		И ВЫЗВАТЬ ЕГО МОЖНО БЫЛО НЕСТАТИЧЕСКИ
 SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
+***
 SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html
 	?
 	извлечь используя extractor docBlock @return
@@ -136,6 +136,7 @@ SYMFONY PROFILER
 SYMFONY REDIS BUNDLE
 SYMFONY TESTS
 	?
+	Don't add the void return type to methods in tests;
 	https://symfony.com/doc/current/components/http_foundation.html#simulating-a-request
 	https://symfony.com/doc/current/controller/error_pages.html#testing-error-pages-during-development
 	https://symfony.com/doc/current/components/clock.html
@@ -169,6 +170,7 @@ PRODUCTION
 	проверить timezone у messenger doctrine
 	Утилиты для управления ENV_VAR https://docs.platform.sh/guides/symfony/environment-variables.html?utm_source=symfony-cloud-sign-up&utm_medium=backlink&utm_campaign=Symfony-Cloud-sign-up&utm_content=docs
 	custom env loader (configuraiton)
+	https://symfony.com/doc/current/contributing/code/conventions.html
 	
 	
 TODO
@@ -194,3 +196,4 @@ TODO
 		избавиться от ENV переменных
 	Services
 		для serviceLocator ServiceMethodsSubscriberTrait отложенная автопроводка .\src\Trait\ServiceLocator\Aware
+		позаимствовать App\CompillerPass\AbstractCompillerPass

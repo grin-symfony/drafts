@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Psr\Container\ContainerInterface;
+use App\Attribute\Hash\HashGetter;
 
 class SomeService extends AbstractStringService
 {
@@ -19,9 +20,7 @@ class SomeService extends AbstractStringService
 	private ?EntityManagerInterface $em = null;
 	
 	public function __construct(
-		#[TaggedIterator('app.command_bus_handler')]
-		//private readonly ServiceLocator $service,
-		private $service,
+		private $locator,
 	) {
 	}
 	
@@ -42,7 +41,7 @@ class SomeService extends AbstractStringService
 	}
 	
     public function __invoke() {
-		\dump(\get_debug_type($this->v));
+		return md5(rand(0, 100));
 	}
 	
     public function getGenerator(...$args): \Generator
