@@ -2,7 +2,12 @@
 
 namespace App;
 
+use function Symfony\component\string\u;
+
+use Symfony\Component\HttpFoundation\RequestStack;
+use App\Type\Autowire\AutowireType;
 use App\Type\Hash\HashType;
+use App\Attribute\AutowireMyMethodOf;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use App\Attribute\NewClosureDefinitionWithTag;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
@@ -11,6 +16,7 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use App\DependencyInjection\Compiler\CustomPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use App\CompillerPass\AppDtoTagPass;
+use App\CompillerPass\AutowireMyMethodOfPass;
 use App\CompillerPass\NewClosureDefinitionWithTagPass;
 use App\CompillerPass\MessengerManagerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -34,6 +40,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 		$container->registerExtension($e = new ExtensionExample);
 		$container->loadFromExtension($e->getAlias());
 		$container->addCompilerPass(new AppDtoTagPass);
+		$container->addCompilerPass(new AutowireMyMethodOfPass());
 		//$container->addCompilerPass(new MessengerManagerPass);
 		
 		
@@ -74,6 +81,8 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 				$d->addTag($attr->tag, $tagAttributes);
 			},
 		);
+		
+		$this->registerAutowireMyMethodOf($container);
 	}
 	
 	public function process(ContainerBuilder $container): void {
@@ -98,5 +107,32 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 			$container->findDefinition($alias = $serviceId),
 		);
 		*/
+	}
+	
+	//###> HELPER ###
+	
+	private function registerAutowireMyMethodOf(ContainerBuilder $container): void {
+		
+		$container->registerAttributeForAutoconfiguration(
+			AutowireMyMethodOf::class,
+			static function(
+				ChildDefinition $d,
+				AutowireMyMethodOf $attr,
+				\ReflectionParameter $refl,
+			) {
+				$parameterName = $refl->getName();
+				$typeOfParameter = $refl->getType()?->getName();
+				$id = $attr->id;
+				
+				$tag = AutowireType::AUTOWIRE_METHOD_OF;
+				$tagAttributes = [
+					'attribute_id' => $id,
+					'type_of_parameter' => $typeOfParameter,
+					'parameter_name' => $parameterName,
+				];
+				$d->addTag($tag, $tagAttributes);
+			},
+		);
+		
 	}
 }

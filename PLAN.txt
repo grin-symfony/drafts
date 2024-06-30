@@ -22,6 +22,7 @@ SYMFONY DOCTRINE
 	гидротация только одного объекта
 	разница Query::execute Query::getResult
 	https://github.com/stof/StofDoctrineExtensionsBundle
+	сдеалть своего purger
 	doctrine add hint (download from db)
 	make:fixtures
 SYMFONY MESSENGER
@@ -51,8 +52,14 @@ SYMFONY SERVICE CONTAINER
 	что фактически делает запись service_id: ~
 	как работает опция services: #prototype#: (from_callable:)
 	register extension https://symfony.com/doc/current/doctrine/custom_dql_functions.html
+	NOTE Как лениво провести сервис:
+		lazy: true #[Lazy] #[Autoconfigure(lazy: true)]
+		!tagged_locator !tagged_iterator
+		!service_locator new ServiceLocator in yaml
+		!service_closure #[AutowireServiceClosure]
+		!closure #[AutowireMethodOf]
 	add yaml custom tag
-		!service_locator !tagged_locator !tagged_iterator !service_closure !closure !service !returns_clone !abstract
+		!tagged_locator !tagged_iterator !service_closure !closure !service_locator !service !returns_clone !abstract
 		!php/const !php/env !php/object
 		!!str !!float !!binary
 	удалить сервис в зависимости от APP_ENV
@@ -69,22 +76,24 @@ SYMFONY SERVICE CONTAINER
 	services.yaml namespace-path не назначает теги как следует, нужно использовать _instanceof
 	как по Definition получить DEFINITION_SERVICE_ID из container
 	Как изменить Definition так, чтобы возвращался Closure определённого метода
-		И ВЫЗВАТЬ ЕГО МОЖНО БЫЛО НЕСТАТИЧЕСКИ
+		И ВЫЗВАТЬ ЕГО МОЖНО БЫЛО НЕСТАТИЧЕСКИ (new Reference)
+	decorator pattern https://symfony.com/doc/current/service_container/service_decoration.html
+	!!! КАК В COMPILER PASS ПЕРЕДАТЬ \Closure например от метода сервиса в аргумент у Definition (создать Definition(Closure))
 SYMFONY DependencyInjection Component https://symfony.com/doc/current/components/dependency_injection.html
-***
 SYMFONY CONFIGURING SYMFONY https://symfony.com/doc/current/configuration.html
 	?
 	извлечь используя extractor docBlock @return
 SYMFONY EXPRESSION LANGUAGE
 SYMFONY EVENTS
 	?
-	поймать WorkerMessageRetriedEvent
+	сделать свой AppEventDispatcher, app.event_listener #[AppEventListener(TARGET_CLASS | TARGET_METHOD)] собрать все Closure слушателей и вызвать при событии
+***
 TWIG
 	?
 	Запросить в extension сервис, который ещё не успел попасть в контейнер
 SYMFONY TWIG COMPONENTS
 SYMFONY STRING
-SYMFONY Clock Component
+SYMFONY CLOCK COMPONENT
 SYMFONY FORMS
 SYMFONY CONFIG COMPONENT https://symfony.com/doc/current/components/config.html
 SYMFONY OPTIONS RESOLVER

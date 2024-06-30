@@ -1,5 +1,5 @@
 imports:    
-    -   'services_yaml/parameters.yaml'
+    -   resource: 'services_yaml/'
 
 services:
     _defaults:
@@ -7,32 +7,32 @@ services:
         autoconfigure: true
         
         bind:
+            
             ###> SERVICES ###
             $t:                 '@Symfony\Contracts\Translation\TranslatorInterface'
-            $ru12Carbon:        '@app.ru_12_carbon'
-            $enUtcCarbon:       '@app.en_utc_carbon'
             ###< SERVICES ###
             
-            ###> gs_service ###
+            
+            ###> grin-symfony ###
+            #$ru12Carbon:  '@app.ru_12_carbon'
+            #$enUtcCarbon: '@app.en_utc_carbon'
             $faker:             '@gs_service.faker'
-            ###< gs_service ###
+            ###< grin-symfony ###
+            
             
             ###> PARAMS ###
             $adminEmail:        '%env(APP_ADMIN_EMAIL)%'
-            $kernelProjectDir:  '%kernel.project_dir%'
             ###< PARAMS ###
+            
             
             ###> MESSENGER ###
             $adminSendEmailMessage: '@app.messenger.notifier.admin_send_email'
             
             $get: '@gs_web_app.messenger.query'
             
-            #$messengerServiceLocator: !tagged_locator
-            #    tag: app.messenger
-            #    index_by: index
-            #    default_index_method: getIndex
             $messengerServiceLocator: '@app.messenger.service_locator'
             ###< MESSENGER ###
+            
             
             ###> PROMOCODE ###
             $promocodes: !tagged_locator
@@ -47,13 +47,6 @@ services:
                 index_by: index
             ###< HASH ###
             
-            
-            ###> PRETTY MESSAGE ###
-            $callablePrettyMessageLocator: !tagged_locator
-                tag: 'app.pretty_message'
-                index_by: index
-                default_index_method: getIndex
-            ###< PRETTY MESSAGE ###
             
     _instanceof:
         
@@ -92,213 +85,21 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Service/Anonymous'
             - '../src/Attribute/'
             - '../src/Entity/'
+            - '../src/Messenger/MessengerManager.php'
+            - '../src/Messenger/Notifier/NotifierHandlers.php'
+            - '../src/Service/Anonymous'
+            - '../src/Service/Router/AttributeRouterReader.php'
+            - '../src/Service/Doctrine/PurgerTruncateFactory.php'
+            - '../src/Service/SomeService.php'
+            - '../src/Service/SomeService2.php'
             - '../src/Kernel.php'
-            
-    ###> SERVICE LOCATOR ###
-    
-    app.messenger.service_locator:
-        class: Symfony\Component\DependencyInjection\ServiceLocator
-        arguments:
-        -
-            # KEY: SERVICE_ID
-            logger: '@Psr\Log\LoggerInterface $messengerEmailLogger'
     
     
-    ###> MESSENGER ###
-
-    App\Messenger\MessengerManager:
-        class: App\Messenger\MessengerManager
-        arguments:
-            $commandBusHandlers: !tagged_locator
-                tag: app.command_bus_handler
-            $eventBusHandlers: !tagged_locator
-                tag: app.event_bus_handler
-
-    ###< MESSENGER ###
-
-
-    ###< SERVICE LOCATOR ###
     
     
-    ###> SOME SERVICE ###
-    
-    App\Service\SomeService:
-        class: App\Service\SomeService
-        arguments:
-            $locator: !tagged_locator
-                tag: app.event_bus_handler
-                index_by: locatorIndex
-                default_index_method: getLocatorIndex
-    
-    ###< SOME SERVICE ###
     
     
-    ###> LOGGER ###
-    
-    app.false:
-        synthetic: true
-    
-    ###< LOGGER ###
-    
-    #App\Dto\User\NullUserDto:
-    #    class: App\Dto\User\NullUserDto
-    #    tags:
-    #    -   app.handler_service:
-    #            name: one
-    #            priority: 2
-            
-    #app.dto.null_user_dto:
-    #    class: App\Dto\User\NullUserDto
-    #    tags:
-    #    -   name: 'app.dto'
-    #App\Dto\User\NullUserDto: '@app.dto.null_user_dto'
-
-
-    ###> ROUTER ###
-    App\Service\Router\AttributeRouterReader:
-        class: App\Service\Router\AttributeRouterReader
-        tags:
-        -   routing.loader
-        
-    decorated_attribute_router_reader:
-        stack:
-        -   class: App\Service\Router\Decorator\AttributeRouterReader
-            decoration_on_invalid: null
-            arguments:
-            -   '%kernel.project_dir%'
-            -   '%env(APP_ENV)%'
-            -   '@?.inner'
-        -   class: App\Service\Router\AttributeRouterReader
-            arguments:
-            -   '%kernel.project_dir%'
-            -   '%env(APP_ENV)%'
-            
-    
-        #class: App\Service\Router\Decorator\AttributeRouterReader
-        #decorates: App\Service\Router\AttributeRouterReader
-        #decoration_priority: 0
-        
     
     
-    ###< ROUTER ###
-    
-            
-    ###> VALUE RESOLVER ###
-    ###< VALUE RESOLVER ###
-    
-    ###> SERVICES ###
-    
-    app.ru_12_carbon:
-        parent: gs_service.carbon_factory_immutable
-        arguments:
-            $settings:
-                locale: ru
-                timezone: '+1200'
-    
-    app.en_utc_carbon:
-        parent: gs_service.carbon_factory_immutable
-        arguments:
-            $settings:
-                locale: en_US
-                timezone: '+0000'
-    
-    app.messenger.notifier.admin_send_email:
-        class: App\Messenger\Notifier\ToAdminSendEmail
-        shared: false
-        arguments:
-            $toEmail: '%env(APP_ADMIN_EMAIL)%'
-    
-    app.messenger.middleware.add_handler_argument_from:
-        abstract: true
-        class: App\Messenger\Middleware\AddHandlerArgumentFrom
-    
-    ###> ABSTRACT OVERRIDING arguments ###
-    app.some_abstract_service:
-        abstract: true
-        class: 'App\Service\AbstractStringService'
-        arguments:
-            $one: '@logger'
-            1: '@?loggerssss'
-    
-    app.notifier_handlers:
-        class: App\Messenger\Notifier\NotifierHandlers
-    App\Messenger\Notifier\NotifierHandlers: '@app.notifier_handlers'
-    
-    app.some_service2:
-        parent: 'app.some_abstract_service'
-        class: 'App\Service\SomeService2'
-        arguments:
-            #index_0: '1'
-            $logger: !service_closure '@monolog.logger.php'
-            #$logger: !closure '@App\Service\CallableService'
-    App\Service\SomeService2: '@app.some_service2'
-                
-    ###< ABSTRACT OVERRIDING arguments ###
-
-    #App\Messenger\AbstractHandler:
-    #    abstract: true
-    #    class: 'App\Messenger\AbstractHandler'
-    #    tags:
-    #    -   name: 'container.service_subscriber'
-    #        key: 'logger'
-    #        id: 'monolog.logger.messenger.email'
-        
-    #app.interface_adapter:
-    #    class: App\Contract\SomeInterface
-    #    from_callable: ['@App\Service\StringService', 'getPath']
-
-    ###> ALIASES ###
-    
-    # NEW DEFINITION
-    #app.stringservice:
-    #    class: App\Service\StringService
-
-    # SERVICE_ID becomes ALIAS (NEW DEFINITION)
-    #App\Service\StringService: '@app.stringservice'
-    #app_stringservice: '@App\Service\StringService'
-    
-    #App\Service\StringService $secondSecond: '@app.string2'
-    
-    ###< ALIASES ###
-    
-    #App\Email\AbstractEmail:
-    #    abstract: true
-    #    class: App\Email\AbstractEmail
-    #    configurator: '@App\Configurator\EmailConfigurator'
-    
-    app.email_namespace:
-        namespace: App\Email\Style\
-        resource: '../src/Email/Style/'
-        configurator: '@App\Configurator\EmailConfigurator'
-    
-    #App\Email\DefaultEmail:
-    #    class: App\Email\DefaultEmail
-    #    parent: App\Email\AbstractEmail
-    
-    #App\Email\CongratulationEmail:
-    #    class: App\Email\CongratulationEmail
-    #    parent: App\Email\AbstractEmail
-    
-    ###< SERVICES ###
-    
-    
-    ###> TAGS ###
-    App\DataFixtures\UserFixtures:
-        class: App\DataFixtures\UserFixtures
-        tags:
-        -   name: doctrine.fixture.orm
-            group: user
-    ###< TAGS ###
-    
-    
-    ###< DOCTRINE ###
-    
-    App\Service\Doctrine\PurgerTruncateFactory:
-        class:  App\Service\Doctrine\PurgerTruncateFactory
-        tags:
-        -   name:   'doctrine.fixtures.purger_factory'
-            alias:  't'
-    ###> DOCTRINE ###

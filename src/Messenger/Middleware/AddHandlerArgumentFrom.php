@@ -51,7 +51,7 @@ class AddHandlerArgumentFrom implements MiddlewareInterface
 
             foreach ($methods as $argumentName => [ 'name' => $method, 'args' => $args ]) {
                 if (\method_exists($stamp, $method)) {
-                    $results [$argumentName] = $stamp->{$method}($args);
+                    $results[$argumentName] = $stamp->{$method}($args);
                 }
             }
         }

@@ -138,6 +138,11 @@ use Symfony\Component\ExpressionLanguage\SerializedParsedExpression;
 
 class HomeController extends AbstractController
 {
+	public function __construct(
+		#[\App\Attribute\AutowireMyMethodOf(\App\Service\SomeService::class)]
+		protected \Closure $getGenerator,
+	) {}
+	
     #[Route(path: '/{id?32}')]
     public function home(
         Request $r,
@@ -176,9 +181,9 @@ class HomeController extends AbstractController
 		$promocodes,
 		#[Autowire('@decorated_attribute_router_reader')]
 		\App\Service\Router\AttributeRouterReader $attributeRouterReader,
+		\App\Service\SomeService $soso,
 		//#[Autowire('@FQCN $var')]
 		$callableHashLocator,
-		$callablePrettyMessageLocator,
     ): Response {
 		
 		//$promocode = $bus->dispatch(new GetPromocodeWithTheBestPrice($promocodes));
@@ -187,8 +192,6 @@ class HomeController extends AbstractController
 		//$container->set('app.false', $this);
 		
 		\dump(
-			$callablePrettyMessageLocator->get('for_man')(),
-			$callablePrettyMessageLocator->get('for_girl')(),
 		);
 		/*
 		$bus->dispatch(new \App\Messenger\Command\Message\SendEmail(
