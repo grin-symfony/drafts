@@ -188,7 +188,7 @@ class HomeController extends AbstractController
 		
 		\dump(
 			$callablePrettyMessageLocator->get('for_man')(),
-			//$callablePrettyMessageLocator->get('for_girl')(),
+			$callablePrettyMessageLocator->get('for_girl')(),
 		);
 		/*
 		$bus->dispatch(new \App\Messenger\Command\Message\SendEmail(

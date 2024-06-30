@@ -40,11 +40,11 @@ services:
             ###< PROMOCODE ###
             
             
+            #//TODO (NewClosureDefinitionWithTagPass) USAGE:
             ###> HASH ###
             $callableHashLocator: !tagged_locator
                 tag: !php/const 'App\Type\Hash\HashType::TAG'
                 index_by: index
-                default_index_method: getIndex
             ###< HASH ###
             
             
