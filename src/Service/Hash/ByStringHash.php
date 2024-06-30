@@ -2,11 +2,12 @@
 
 namespace App\Service\Hash;
 
-use App\Attribute\Hash\HashGetter;
+use App\Type\Hash\HashType;
+use App\Attribute\NewClosureDefinitionWithTag;
 use Symfony\Component\DependencyInjection\Attribute\AsAlias;
 
-#[HashGetter('by_string', method: 'myMethod')]
 class ByStringHash {
+	#[NewClosureDefinitionWithTag(HashType::TAG, 'by_string')]
 	public function myMethod(string $string): string {
 		return md5($string);
 	}

@@ -15,13 +15,15 @@ use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Alias;
 
-abstract class AbstractCompillerPass implements CompilerPassInterface {
+abstract class AbstractCompilerPass implements CompilerPassInterface {
 	
 	/**
 	* Usage:
-	* 
+	*    $index = self::getFirstTagAttribute($index, $originTagAttributes);
 	*/
-	protected static function getFirstTagAttribute(string|int $key, array $tagAttributes, bool $throw = false): mixed {
+	protected static function getFirstTagAttribute(string|int|null $key, array $tagAttributes, bool $throw = false): mixed {
+		if (null === $key) return null;
+		
 		foreach($tagAttributes as $tagAttribute) {
 			if (isset($tagAttribute[$key])) return $tagAttribute[$key];
 		}

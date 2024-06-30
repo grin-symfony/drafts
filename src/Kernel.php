@@ -4,14 +4,14 @@ namespace App;
 
 use App\Type\Hash\HashType;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use App\Attribute\Hash\HashGetter;
+use App\Attribute\NewClosureDefinitionWithTag;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use App\DependencyInjection\Compiler\CustomPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use App\CompillerPass\AppDtoTagPass;
-use App\CompillerPass\NewClosureDefinitionOfTagged;
+use App\CompillerPass\NewClosureDefinitionWithTagPass;
 use App\CompillerPass\MessengerManagerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
@@ -35,12 +35,21 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 		$container->loadFromExtension($e->getAlias());
 		
 		$container->addCompilerPass(new AppDtoTagPass);
-		$container->addCompilerPass(new NewClosureDefinitionOfTagged(HashType::TAG, 'index'));
+		
+		//TODO (NewClosureDefinitionWithTagPass)
+		$container->addCompilerPass(new NewClosureDefinitionWithTagPass(
+			new NewClosureDefinitionWithTag(HashType::TAG),
+		));
 		//$container->addCompilerPass(new MessengerManagerPass);
 		
+		//TODO (NewClosureDefinitionWithTagPass)
 		$container->registerAttributeForAutoconfiguration(
-			HashGetter::class,
-			static function(ChildDefinition $d, HashGetter $attr, \ReflectionClass|\ReflectionMethod $refl) {
+			NewClosureDefinitionWithTag::class,
+			static function(
+				ChildDefinition $d,
+				NewClosureDefinitionWithTag $attr,
+				\ReflectionClass|\ReflectionMethod $refl,
+			) {
 				$isInvokeable = false;
 				$method = null;
 				if ($refl instanceof \ReflectionClass) {
@@ -54,13 +63,12 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 					[
 						'method' => $method,
 					],
-					\array_filter((array) $attr),
+					\array_filter((array) $attr, static fn($e) => !\is_null($e)),
 					[
 						'is_invokeable' => $isInvokeable,
 					],
 				), static fn($e) => !\is_null($e));
-				//\dd(HashType::TAG, $tagAttributes);
-				$d->addTag(HashType::TAG, $tagAttributes);
+				$d->addTag($attr->tag, $tagAttributes);
 			},
 		);
 	}

@@ -197,3 +197,4 @@ TODO
 	Services
 		для serviceLocator ServiceMethodsSubscriberTrait отложенная автопроводка .\src\Trait\ServiceLocator\Aware
 		позаимствовать App\CompillerPass\AbstractCompillerPass
+		позаимствовать //TODO (NewClosureDefinitionWithTagPass)
