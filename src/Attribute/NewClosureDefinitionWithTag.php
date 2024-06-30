@@ -7,7 +7,12 @@ namespace App\Attribute;
 class NewClosureDefinitionWithTag {
 	
 	/**
-	* NewClosureDefinitionWithTagPass reads only @tag parameter
+	* NewClosureDefinitionWithTagPass reads @tag parameter
+	* 
+	* For NewClosureDefinitionWithTag as an \Attribute we set index as value for index_by
+	* if you use !tagged_locator or !tagged_iterator
+	* BUT
+	* For Compiler Pass we set index as key of index_by
 	*/
 	public function __construct(
 		public readonly string $tag,

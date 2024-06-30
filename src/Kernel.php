@@ -33,16 +33,19 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 	protected function build(ContainerBuilder $container): void {
 		$container->registerExtension($e = new ExtensionExample);
 		$container->loadFromExtension($e->getAlias());
-		
 		$container->addCompilerPass(new AppDtoTagPass);
-		
-		//TODO (NewClosureDefinitionWithTagPass)
-		$container->addCompilerPass(new NewClosureDefinitionWithTagPass(
-			new NewClosureDefinitionWithTag(HashType::TAG),
-		));
 		//$container->addCompilerPass(new MessengerManagerPass);
 		
+		
 		//TODO (NewClosureDefinitionWithTagPass)
+		//processes the tag
+		$container->addCompilerPass(new NewClosureDefinitionWithTagPass(
+			new NewClosureDefinitionWithTag(HashType::TAG),
+			new NewClosureDefinitionWithTag('app.pretty_message'),
+		));
+		
+		//TODO (NewClosureDefinitionWithTagPass)
+		//sets tag for us, by Attribute
 		$container->registerAttributeForAutoconfiguration(
 			NewClosureDefinitionWithTag::class,
 			static function(

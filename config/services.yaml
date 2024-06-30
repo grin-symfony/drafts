@@ -47,6 +47,14 @@ services:
                 default_index_method: getIndex
             ###< HASH ###
             
+            
+            ###> PRETTY MESSAGE ###
+            $callablePrettyMessageLocator: !tagged_locator
+                tag: 'app.pretty_message'
+                index_by: index
+                default_index_method: getIndex
+            ###< PRETTY MESSAGE ###
+            
     _instanceof:
         
         ###> MESSENGER ###

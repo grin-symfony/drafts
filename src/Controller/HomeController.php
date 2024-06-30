@@ -178,6 +178,7 @@ class HomeController extends AbstractController
 		\App\Service\Router\AttributeRouterReader $attributeRouterReader,
 		//#[Autowire('@FQCN $var')]
 		$callableHashLocator,
+		$callablePrettyMessageLocator,
     ): Response {
 		
 		//$promocode = $bus->dispatch(new GetPromocodeWithTheBestPrice($promocodes));
@@ -186,7 +187,8 @@ class HomeController extends AbstractController
 		//$container->set('app.false', $this);
 		
 		\dump(
-			\iterator_to_array($callableHashLocator),
+			$callablePrettyMessageLocator->get('for_man')(),
+			//$callablePrettyMessageLocator->get('for_girl')(),
 		);
 		/*
 		$bus->dispatch(new \App\Messenger\Command\Message\SendEmail(

@@ -22,13 +22,12 @@ class NewClosureDefinitionWithTagPass extends AbstractCompilerPass {
 	
 	protected readonly array $newClosureDefinitionsWithTag;
 	
+	public const DEFAULT_INDEX_BY_NAME = 'index';
+	
 	/**
-	* Service that uses this @tag leaves without this @tag
+	* Services that use #[NewClosureDefinitionsWithTag(tag)] leave without defined tag
 	* But a new \Closure Definition creates with this tag
 	* and references to the method of the origin service.
-	* 
-	* Optional:
-	* You can use @index argument if you use !tagged_locator or !tagged_iterator for @tag
 	*/
 	public function __construct(
 		NewClosureDefinitionWithTag...$newClosureDefinitionsWithTag,
@@ -40,7 +39,9 @@ class NewClosureDefinitionWithTagPass extends AbstractCompilerPass {
 		foreach($this->newClosureDefinitionsWithTag as $newClosureDefinitionWithTag) {
 			[
 				'tag' => $tag,
+				'index' => $indexAsName,
 			] = ((array) $newClosureDefinitionWithTag);
+			$indexAsName ??= self::DEFAULT_INDEX_BY_NAME;
 			$ids = $container->findTaggedServiceIds($tag);
 			
 			foreach($ids as $id => $originTagAttributes) {
@@ -72,7 +73,7 @@ class NewClosureDefinitionWithTagPass extends AbstractCompilerPass {
 				$class = 'Closure';
 				$factory = 'Closure::fromCallable';
 				if (null !== $index) {
-					$pureTagAttributes['index'] = $index;
+					$pureTagAttributes[$indexAsName] = $index;
 				}
 				$tags = [
 					$tag => [
