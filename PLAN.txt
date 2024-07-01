@@ -2,6 +2,7 @@ ALWAYS SYMFONY BIN/CONSOLE TOOLS
 |
 SYMFONY ROUTE
 	?
+	зачем options в route и можно ли их модифицировать в ControllerEventListener
 	RequestStack or Request
 	use Session in stateless route
 SYMFONY SECRETS
@@ -27,6 +28,7 @@ SYMFONY DOCTRINE
 	make:fixtures
 SYMFONY MESSENGER
 	?
+	Прервать вызов MessageHandler по SomeStamp, когда был вызван особый обработчик (после которого других обработчиков вызывать не нужно)
 	bin/console messenger:stats Transport implements MessageCountAwareInterface
 	MyTransport implements QueueReceiverInterface bin/console messenger:consume —all —queues=h
 	есть или нет транзакиии в handlers
@@ -46,6 +48,7 @@ SYMFONY ENV PROCESSOR
 SYMFONY YAML PARSER (TAGS)
 SYMFONY SERVICE CONTAINER
 	?
+	Запросить в extension сервис, который ещё не успел попасть в контейнер
 	реализовать проход компилятора для тега (app.set_callable_result, method, args) чтоб был найден метод (SetCallableResultInterface) класса для снабжения данными тегированного
 	разница в проходах компилятора PassConfig::TYPE_BEFORE_OPTIMIZATION PassConfig::TYPE_AFTER_REMOVING
 	удалить env переменную в бандле, чтоб не торчал
@@ -87,10 +90,13 @@ SYMFONY EXPRESSION LANGUAGE
 SYMFONY EVENTS
 	?
 	сделать свой AppEventDispatcher, app.event_listener #[AppEventListener(TARGET_CLASS | TARGET_METHOD)] собрать все Closure слушателей и вызвать при событии
-***
+The EventDispatcher Component https://symfony.com/doc/current/components/event_dispatcher.html
 TWIG
+	https://symfony.com/doc/current/templates.html
 	?
-	Запросить в extension сервис, который ещё не успел попасть в контейнер
+	Как вызвать Closure в шаблоне
+***
+SYMFONY HTTP COMPONENT https://symfony.com/doc/current/components/http_kernel.html
 SYMFONY TWIG COMPONENTS
 SYMFONY STRING
 SYMFONY CLOCK COMPONENT
@@ -104,6 +110,7 @@ SYMFONY EXTENTIONS
 	add doctrine functions
 SYMFONY SECURITY
 	?
+	(The security system uses an event dispatcher per firewall: php bin/console debug:event-dispatcher --dispatcher=security.event_dispatcher.main)
 	Autowiring: [ #[CurrentUser] User $user / User $user ]
 	Какая разница между User and SecurityToken (UserValueResolver, SecurityTokenValueResolver)
 	security-http/Attribute/CurrentUser.php
@@ -142,6 +149,7 @@ SYMFONY WORKFLOW
 SYMFONY PROFILER
 	?
 	Почему сервис @Psr\Container\ContainerInterface не доступен из services.yaml
+https://symfony.com/doc/current/reference/dic_tags.html
 SYMFONY REDIS BUNDLE
 SYMFONY TESTS
 	?
@@ -173,6 +181,7 @@ AMQP
 	https://github.com/cloudamqp/amqproxy
 Beanstalkd Transport https://habr.com/ru/companies/shopozzcom/articles/240483/
 The Runtime Component https://symfony.com/doc/current/components/runtime.html
+REFERENCE https://symfony.com/doc/current/reference/index.html
 PRODUCTION
 	?
 	process manager Supervisor or systemd for messenger	
@@ -207,3 +216,5 @@ TODO
 		для serviceLocator ServiceMethodsSubscriberTrait отложенная автопроводка .\src\Trait\ServiceLocator\Aware
 		позаимствовать App\CompillerPass\AbstractCompillerPass
 		позаимствовать //TODO (NewClosureDefinitionWithTagPass)
+		
+Банда 4-х

@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use function Symfony\component\string\u;
 
+use App\Attribute\SomeAttribute;
+use App\Attribute\NewClosureDefinitionWithTag;
+use App\Messenger\Event\Message\Shop\PriceWasDecreased;
 use App\Contract\Some\SomeServiceInterface;
 use App\Service\SomeService2;
 use Symfony\Component\DependencyInjection\Attribute\AutowireServiceClosure;
@@ -50,7 +53,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -184,16 +186,44 @@ class HomeController extends AbstractController
 		\App\Service\SomeService $soso,
 		//#[Autowire('@FQCN $var')]
 		$callableHashLocator,
+		\Psr\EventDispatcher\EventDispatcherInterface $dispatcher,
+		Request $request,
+		/**
+		* $now = -1 day
+		* 
+		* @param Carbon $now = +2 days
+		*/
+		Carbon $now,
     ): Response {
+		
+		$obj = new \StdClass;
+		
+		$obj->{'value-one'} = 'SUCCESS';
+		
+		$this->addFlash(
+			'notice',
+			$obj->{'value-one'},
+		);
+		
+        return $this->render('home/home.html.twig', [
+			'hash_locator' => $callableHashLocator,
+			'a' => [
+				'key' => 11,
+				2,
+			],
+			'func' => static fn($el) => $el,
+		]);
 		
 		//$promocode = $bus->dispatch(new GetPromocodeWithTheBestPrice($promocodes));
 		
 		// synthetic
 		//$container->set('app.false', $this);
 		
+		
+		/*
+		$dispatcher->dispatch(new PriceWasDecreased());
 		\dump(
 		);
-		/*
 		$bus->dispatch(new \App\Messenger\Command\Message\SendEmail(
 			'example@ex.ru',
 			'SOME TEXT TO THIS EMAIL',
@@ -201,7 +231,6 @@ class HomeController extends AbstractController
 		*/
 		
 		
-        return $this->render('home/home.html.twig');
 		
 		
 		$pa = PropertyAccess::createPropertyAccessor();
@@ -457,12 +486,12 @@ class HomeController extends AbstractController
         return $response;
     }
 
-    #[Route(
-        path: '/product/{id}',
-        methods: [
-            'GET',
-        ],
-    )]
+    #[Route(path: '/product/abc')]
+    public function removeProduct() {
+        return $this->render('admin/index.html.twig');
+    }
+
+    #[Route(path: '/product/{id<[0-9]+>}', methods: ['GET'])]
     //#[Cache(public: true, maxage: 10)]
     public function condition(
         Request $r,
@@ -533,42 +562,5 @@ class HomeController extends AbstractController
         */
 
         return $resp;
-    }
-
-    #[Route(path: '/product/remove/{id}')]
-    public function removeProduct(
-        EntityManagerInterface $em,
-        ?Product $product = null,
-    ) {
-        if (\is_null($product)) {
-            return $this->redirectToRoute('app_home_home');
-        }
-
-        $em->remove($product);
-        $em->flush();
-
-        return $this->redirectToRoute('app_home_home');
-    }
-}
-
-class Person
-{
-    /**
-     * @var string[]
-     */
-    private array $children = [
-        'old value',
-    ];
-
-    public function getChildren(): array
-    {
-        return $this->children;
-    }
-
-    public function setChildren(array $children): static
-    {
-        $this->children = $children;
-
-        return $this;
     }
 }

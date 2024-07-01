@@ -4,6 +4,9 @@ namespace App;
 
 use function Symfony\component\string\u;
 
+use Symfony\Component\EventDispatcher\DependencyInjection\AddEventAliasesPass;
+use App\Type\Event\ShopEvent;
+use App\Messenger\Event\Message\Shop\PriceWasDecreased;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Type\Autowire\AutowireType;
 use App\Type\Hash\HashType;
@@ -37,6 +40,8 @@ class Kernel extends BaseKernel implements CompilerPassInterface
     }
 	
 	protected function build(ContainerBuilder $container): void {
+		$this->addEventAliasesPass($container);
+		
 		$container->registerExtension($e = new ExtensionExample);
 		$container->loadFromExtension($e->getAlias());
 		$container->addCompilerPass(new AppDtoTagPass);
@@ -132,7 +137,14 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 				];
 				$d->addTag($tag, $tagAttributes);
 			},
-		);
+		);	
+	}
+	
+	private function addEventAliasesPass(ContainerBuilder $container): void {
+		return;
 		
+		$container->addCompilerPass(new AddEventAliasesPass([
+			PriceWasDecreased::class => ShopEvent::PRICE_WAS_DECREASED,
+		]));
 	}
 }

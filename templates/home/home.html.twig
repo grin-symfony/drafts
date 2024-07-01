@@ -1,29 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-		{{ dump(app.current_route_parameters) }}
+	{{ dump(app.current_route, app.current_route_parameters) }}
 	<br>
-	<div class="red">
-		{{ where_I_am ?? "WEREN'T PASSED" }}
-	</div>
-	<br>
-	{{ dump(page ?? "WEREN'T PASSED") }}
 	
-	<div>
-		{{ absolute_url(path('app_home_home')) }}
-	</div>
+	{{ attribute(hash_locator, 'flashes') is defined ? 'METHOD EXISTS' : 'METHOD DOESN\'T EXIST' }}
+
+	{{ dump(attribute(app, 'flashes', ['notice'])) }}
 	{#
-	#}
+	{{ dump(app.flashes('notice')) }}
 	
 	<div>
-		{#
-			{% for mess in messages %}
-			{% endfor %}
-		#}
 		{% for key, mess in app.session.flashBag.peek('notice') %}
 				<div class={{ 'flash-' ~ key }}>
 					{{ mess }}
 				</div>			
 		{% endfor %}
 	</div>
+	#}
 {% endblock body %}

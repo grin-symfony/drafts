@@ -1,5 +1,57 @@
+# Default configuration for extension with alias: "twig"
 twig:
-    file_name_pattern: '*.twig'
+    autoescape_service:         ~
+    autoescape_service_method:  ~
+
+    #paths:
+        # Prototype
+        #paths:                ~
+    
+    form_themes:
+
+        # Default:
+        - form_div_layout.html.twig
+
+        # Example:
+        # - '@My/form.html.twig'
+    globals: []
+    cache: '%kernel.project_dir%/var/cache/dev/twig'
+    charset:              '%kernel.charset%'
+    debug:                '%kernel.debug%'
+    strict_variables:     '%kernel.debug%'
+    auto_reload:          ~
+    optimizations:        1
+
+    # The default path used to load templates
+    default_path: '%kernel.project_dir%/templates'
+
+    # Pattern of file name used for cache warmer and linter
+    file_name_pattern: [
+        '*.twig'
+    ] # Example: '*.twig'
+    
+
+    # The default format options used by the date filter
+    date:
+        format:               'F j, Y H:i'
+        interval_format:      '%d days'
+
+        # The timezone used when formatting dates, when set to null, the timezone returned by date_default_timezone_get() is used
+        timezone:             null
+
+    # The default format options for the number_format filter
+    number_format:
+        decimals:             0
+        decimal_point:        .
+        thousands_separator:  "'"
+    mailer:
+
+        # A service implementing the "Symfony\Component\Mime\HtmlToTextConverter\HtmlToTextConverterInterface"
+        html_to_text_converter: null
+
+when@dev:
+    twig:
+        #strict_variables: false
 
 when@test:
     twig:

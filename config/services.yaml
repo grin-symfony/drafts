@@ -79,6 +79,20 @@ services:
             -   name: app.dto
             -   name: 'app.messenger'
         ###< DTO ###
+        
+        
+        ###> EVENT LISTENER ###
+        
+        App\Contract\EventListener\KernelEventListenerInterface:
+            tags:
+            -   kernel.event_listener
+        
+        App\EventListener\Kernel\SubRequest\AbstractEventListener:
+            tags:
+            -   name: kernel.event_listener
+                event: !php/const Symfony\Component\HttpKernel\KernelEvents::EXCEPTION
+        
+        ###< EVENT LISTENER ###
 
         
     App\:
@@ -87,19 +101,15 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Attribute/'
             - '../src/Entity/'
+            - '../src/Kernel.php'
+            ###> HANDLED BY IMPORTS ###
+            - '../src/EventListener/Kernel/'
+            - '../src/Service/Anonymous/'
+            
             - '../src/Messenger/MessengerManager.php'
             - '../src/Messenger/Notifier/NotifierHandlers.php'
-            - '../src/Service/Anonymous'
             - '../src/Service/Router/AttributeRouterReader.php'
             - '../src/Service/Doctrine/PurgerTruncateFactory.php'
             - '../src/Service/SomeService.php'
             - '../src/Service/SomeService2.php'
-            - '../src/Kernel.php'
-    
-    
-    
-    
-    
-    
-    
-    
+            ###< HANDLED BY IMPORTS ###
